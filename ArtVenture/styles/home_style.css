@@ -1,0 +1,281 @@
+*{
+    margin:0;
+    padding:0;
+}
+.header-content{
+    width:100%;
+    height:60vh;
+   background: linear-gradient(to top,rgba(0,0,0,0.5)50%,rgba(0,0,0,0.5)50%),url("../img/garden3.jfif");
+    background-position: bottom;
+    background-size: cover;
+    display:flex;
+    align-items: left;
+    color:white;
+}
+h4{
+    color:lightpink;
+}
+.icon{
+   
+    display: inline-block;
+    vertical-align: bottom;
+    margin-left: 0;
+    margin-top: 20px;
+    
+}
+.search-bar{
+   width:100px;
+   height:36px;
+   vertical-align: bottom;
+   border-radius: 3.5px;
+
+   
+}
+.search-icon{
+    height:36px;
+    width:40px;
+    margin: 0%;
+    background-color: cadetblue;
+}
+form{
+    display:flex;
+    background: #fff;
+    width:600px;
+    height:36px;
+    margin-left:30px;
+    margin-top:10px;
+    margin-bottom: 20px;
+    vertical-align: middle;
+    text-align: start;
+}
+form input{
+    flex: 1;
+    border:none;
+    outline:none;
+    padding: 0 10px 0 29px;
+}
+form button{
+    background: transparent;
+    border:none;
+    
+}
+
+.site-name{
+    display: inline-block;
+    margin-left:20px;
+    font-family: lobster;
+    font-size: 36px;
+    margin-right: 0;
+    padding: 0;
+    color:#fff;
+    
+}
+.signup-button{
+    background-color: rgb(201, 0, 0);
+    color: white;
+    border: 3px;
+    border-color:  rgb(201, 0, 0);
+    border-style: solid;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 2px;
+    cursor: pointer;
+    margin-right: 8px;
+    margin-top: 9px;
+   
+    transition: opacity 1s;
+   
+}
+.signup-button:hover{
+    background-color: rgb(158, 0, 0);
+}
+.signup-button:active{
+    background-color: rgb(201, 0, 0);
+}
+.login-button{
+    background-color: transparent;
+    border-color:white;
+    border-style: solid;
+    border-width: 3px;
+    color: white;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 2px;
+    cursor: pointer;
+    margin-right: 8px;
+    margin-top: 9px;
+   
+    transition: background-color 0.15s,color 0.15s;
+
+}
+.login-button:hover{
+    background-color: rgba(255,255,255,0.3);
+    color: rgba(255,255,255,1);
+    box-shadow: none;
+}
+.login-button:active{
+    background-color: cadetblue;
+    color: white;
+
+}
+.dropdown-menu{
+    background-color: black;
+    text-align: center;
+    border: solid;
+    border-color: whitesmoke;
+    border-width: 1px;
+   
+}
+.dropdown-menu ul{
+    display:inline-flex;
+    list-style: none;
+    color:white;
+}
+.dropdown-menu ul li{
+        width: 180px;
+        padding:15px;
+}
+.dropdown-menu ul li a{
+    text-decoration: none;
+    color:white;
+}
+.active,.dropdown-menu ul li:hover{
+    background-color: transparent;
+    border-color:white;
+    border-style: solid;
+    border-width: 3px;
+    font-size: larger;
+}
+.settings-menu{
+    display: none;
+}
+.dropdown-menu ul li:hover .settings-menu{
+    display: block;
+    position: absolute;
+    background-color: black;
+    color: white;
+    margin-top: 15px;
+    margin-left: -15px;
+}
+.dropdown-menu ul li:hover .settings-menu ul{
+  display: block;
+  margin: 10px;
+}
+.dropdown-menu ul li:hover .settings-menu ul li{
+   width:150px;
+   padding: 10px;
+   text-align: center;
+   background: transparent;
+}
+.artwork-menu{
+    display: none;
+}
+.dropdown-menu ul li:hover .artwork-menu{
+    display: block;
+    position: absolute;
+    background-color: black;
+    color: white;
+    margin-top: 15px;
+    margin-left: -15px;
+}
+.dropdown-menu ul li:hover .artwork-menu ul{
+  display: block;
+  margin: 10px;
+}
+.dropdown-menu ul li:hover .artwork-menu ul li{
+   width:150px;
+   padding: 10px;
+   text-align: center;
+   background: transparent;
+}
+.follow-btn{
+    background-color: white;
+    border-color: black;
+    border-style: solid;
+    border-width: 2px;
+    color: black;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 15px;
+    cursor: pointer;
+    margin-left: 30px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    height:30px;
+    transition: background-color 0.15s,color 0.15s;
+
+}
+.follow-btn:hover{
+    background-color: black;
+    color : white;
+}
+.get-app{
+    text-align: center;
+    align-self: center;
+}
+.category{
+    display: block;
+    height:100px;
+    width:100px;
+    margin-left: 30px;
+    border-radius: 50%;
+
+}
+.category-name{
+    padding:3px;
+  
+    text-align: center;
+}
+.icons {
+    color: white;
+    align-self: center;
+}
+.bx{
+    font-size: 30px;
+}
+.heart{
+    color:black;
+}
+.page-btn{
+    height:40px;
+    width:40px;
+    border-radius: 50%;
+}
+.paint:hover{
+    cursor: pointer;
+}
+.heart2
+{
+    color:#fff;
+}
+.desc{
+    padding:5px;
+}
+.buy-btn{
+    background-color: rgb(201, 0, 0);
+    color: white;
+    border: none;
+    margin-top: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 2px;
+    cursor: pointer;
+    margin-right: 8px;
+    transition: opacity 1s;
+    vertical-align: top;
+}
+.buy-btn:hover{
+    background-color: rgb(158, 0, 0);
+}
+.buy-btn:active{
+    background-color: green;
+}
+

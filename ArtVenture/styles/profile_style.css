@@ -1,0 +1,39 @@
+﻿body {
+    padding: 20px;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 20px;
+}
+
+.profile-details {
+    font-size: 18px;
+}
+
+.order-history {
+    margin-top: 40px;
+}
+
+.order-history-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    .order-history-table th, .order-history-table td {
+        padding: 8px;
+        text-align: center;
+    }
+
+    .order-history-table th {
+        background-color: #f2f2f2;
+    }

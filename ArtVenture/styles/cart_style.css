@@ -1,0 +1,35 @@
+body {
+    padding: 20px;
+    display: flexbox;
+  }
+  table {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  th, td {
+    text-align: left;
+    padding: 8px;
+  }
+  th {
+    background-color: #f2f2f2;
+  }
+  .total-section {
+    margin-top: 20px;
+    text-align: right;
+  }
+  .payment-section {
+    margin-top: 30px;
+  }
+  .quantity-btn {
+    display: flex;
+    align-items: center;
+  }
+  .quantity-btn button {
+    padding: 4px 8px;
+    margin-left: 4px;
+  }
+  .form-group{
+    display: block;
+    flex-flow: row wrap;
+    align-items: center;
+  }
