@@ -1,9 +1,10 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="ArtVenture.Home" %>
+﻿<%@ Page Title="HomePage" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Home.aspx.cs" EnableEventValidation="false" Inherits="ArtVenture.Home" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
     <title>ArtVenture</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="true">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link
         href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Dancing+Script:wght@400;600;700&family=Lobster&family=Roboto+Flex:wght@100;500&family=Roboto:wght@300;500;700&display=swap"
@@ -30,8 +31,9 @@
                     </form>
                 </div>
             </div>
-            <div><a href="Signup.aspx"><button class="signup-button">SIGN UP</button></a></div>
-            <div><a href="Login.aspx"><button class="login-button">LOG IN</button></a></div>
+           <div> <asp:Button ID="Signup_btn" runat="server" Text="SIGN UP" CssClass="signup-button" OnClick="Signup_btn_Click" /></div>
+          <div> <asp:Button ID="Login_btn" runat="server" Text="LOG IN" CssClass="login-button" OnClick="Login_btn_Click" /></div>
+
             <div></div>
             <div></div>
             <div>
@@ -252,6 +254,7 @@
                 </div>
                 <div> <button class="follow-btn">Follow</button></div>
             </div>
+             </div>
 
 
     </section>
@@ -384,6 +387,7 @@
                 <div style="margin-left: 30px;">$12,000</div>
                 <div> <button class="follow-btn">Get Details</button></div>
             </div>
+             </div>
 
 
     </section>
@@ -484,7 +488,7 @@
                 </div>
                 <div> <button class="follow-btn">Follow</button></div>
             </div>
-
+             </div>
 
     </section>
 
@@ -499,6 +503,7 @@
             <div>
                 <img src="img/garden3.jfif" style="margin:30px;width:800px">
             </div>
+             </div>
     </section>
     <hr style="margin-top:80px">
     <section>
@@ -512,6 +517,7 @@
                 <div>Countries</div>
             </div>
         </div>
+       
 
     </section>
 

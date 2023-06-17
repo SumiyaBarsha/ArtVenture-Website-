@@ -8,11 +8,40 @@
             <div class="left">
               <h1>Sign up</h1>
               
-              <input type="text" name="username" placeholder="Username" />
-              <input type="text" name="email" placeholder="E-mail" />
-              <input type="password" name="password" placeholder="Password" />
-              <input type="password" name="password2" placeholder="Retype password" />
-              <input type="submit" name="signup_submit" value="Sign me up" />
+                <div class="row">
+            <div class="col-md-6 mx-auto">
+                
+                <div class="form-group">
+                   <label for="body_Usernametxt">Username</label>
+                <asp:TextBox ID="Usernametxt" runat="server" CssClass="input"></asp:TextBox>
+                </div>
+
+                <div class="form-group">
+                   <label for="body_Useremailtxt">E-mail</label>
+                <asp:TextBox ID="Useremailtxt" runat="server" CssClass="input"></asp:TextBox>
+                </div>
+
+                <div class="form-group">
+                    <label for="body_Userpasstxt">Password</label>
+                <asp:TextBox ID="Userpasstxt" runat="server" CssClass="input"></asp:TextBox>
+                </div>
+
+                <div class="form-group">
+                    <label for="body_Userpass2txt">Retype password</label>
+                <asp:TextBox ID="Userpass2txt" runat="server" CssClass="input"></asp:TextBox>
+                </div>
+
+                    <div class="col-md-6">
+                        <label for="body_Usercategory">Select</label>
+                        <asp:DropDownList CssClass="form-control" ID="Usercategory" runat="server">
+                            <asp:ListItem Value="Buyer">Buyer</asp:ListItem>
+                            <asp:ListItem Value="Seller">Seller</asp:ListItem>
+                        </asp:DropDownList>
+                    </div>
+
+                    <asp:Button ID="Register_btn" runat="server" Text="Sign Me Up" OnClick="Register_btn_Click" />
+                </div>
+                </div>
             </div>
             
             <div class="right">
@@ -23,5 +52,5 @@
               <button class="social-signin google">Log in with Google+</button>
             </div>
             <div class="or">OR</div>
-          </div>
+        </div>
 </asp:Content>

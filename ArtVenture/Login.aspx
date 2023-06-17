@@ -8,8 +8,6 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <body style="background-image: url(img/light2.png);background-size: cover;
-              background-position: center;background-attachment: fixed;background-repeat: no-repeat;">
     <div class="box">
         <div class="container">
 
@@ -19,17 +17,20 @@
             </div>
 
             <div class="input-field">
-                <input type="text" class="input" placeholder="Username" id="">
+                <label for="body_Usernametxt">Username</label>
+                <asp:TextBox ID="Usernametxt" runat="server" CssClass="input"></asp:TextBox>
                 <i class='bx bx-user'></i>
             </div>
 
             <div class="input-field">
-                <input type="Password" class="input" placeholder="Password" id="">
+                 <label for="body_Passwordtxt">Password</label>
+                <asp:TextBox ID="Passwordtxt" runat="server" CssClass="input"></asp:TextBox>
                 <i class='bx bx-lock-alt'></i>
             </div>
 
             <div class="input-field">
-                <input type="submit" class="submit" value="Login" id="">
+               <%-- <input type="submit" class="submit" value="Login" id="Sign_in_btn"> --%>
+                 <asp:Button ID="Signin_btn" runat="server" Text="LOGIN" CssClass="submit" OnClick="Signin_btn_Click" />
             </div>
 
             <div class="two-col">
@@ -43,10 +44,10 @@
             </div>
             <div class="two-col">
                 <div class="one">
-                   <a href="#" ><button class="g-btn">Google</button></a>
+                    <asp:Button ID ="Google_btn" runat="server" Text="Google" CssClass="g-btn" OnClick="Google_btn_Click" />
                 </div>
                 <div>
-                    <a href="#" ><button class="f-btn">Facebook</button></a>
+                   <asp:Button ID ="Fb_btn" runat="server" Text="Facebook" CssClass="f-btn" OnClick="Fb_btn_Click" />
                 </div>
             </div>
             
