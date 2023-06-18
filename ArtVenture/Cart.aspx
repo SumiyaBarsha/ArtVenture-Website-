@@ -3,41 +3,27 @@
 
      <title>ArtVenture|Cart</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link
         href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Dancing+Script:wght@400;600;700&family=Lobster&family=Roboto+Flex:wght@100;500&family=Roboto:wght@300;500;700&display=swap"
         rel="stylesheet">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="styles/cart_style.css">
+     <link rel="stylesheet" href="styles/home_style.css">
+    
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
      
      <header class="header-content">
-        <div style="margin-top:30px;display:grid;
-    grid-template-columns: 190px  30px 700px 120px 120px">
-            <div>
-                <h2 class="site-name">ArtVenture</h2>
-            </div>
-            <div><img class="icon" src="img/palette(1).png" style="height:20px;width:30px;"></div>
-            <div>
-                <div class="container">
-                    <form action="">
-                        <input class="search-bar" type="text" placeholder="Search by artist,gallery,color etc.">
-                        <button class="search-icon" type="submit"><img src="img/search.png"
-                                style="height:30px;width:28px"></button>
-                    </form>
-                </div>
-            </div>
-            <div><a href="Signup.aspx"><button class="signup-button">SIGN UP</button></a></div>
-            <div><a href="Login.aspx"><button class="login-button">LOG IN</button></a></div>
-            <div></div>
-            <div></div>
-            <div>
-                <p style="text-align: center;font-size: 60px;font-family:'Dancing Script',cursive;color:aliceblue;">Dive Into Fantasy</p>
-            </div>
-        </div>
+         <div
+        style="padding:20px;display:grid;width:100%;grid-template-columns: 1fr 0.5fr 0.5fr 0.5fr;background-image:url(img/artsy\ \(2\).jfif)">
+        <div class="site-name">ArtVenture</div>
+        <div class="icons"><a href="Home.aspx" class="heart2"><i class="bx bx-home"></i></a></div>
+        <div class="icons"><i class="bx bx-user"></i></div>
+        <div class="icons"><a href="Favourites.aspx" class="heart2"><i class="bx bx-heart"></i></a></div>
+        <div class="icons"><i class="bx bx-cart"></i></div>
+    </div>
 
     </header>
     
@@ -139,7 +125,6 @@
         <button  type="submit" class="btn btn-primary">Make a Payment</button>
       </form>
     </div>
-  </div>
   </form>
 
 

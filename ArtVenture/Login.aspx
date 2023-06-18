@@ -24,7 +24,7 @@
 
             <div class="input-field">
                  <label for="body_Passwordtxt">Password</label>
-                <asp:TextBox ID="Passwordtxt" runat="server" CssClass="input"></asp:TextBox>
+                <asp:TextBox ID="Passwordtxt" runat="server" TextMode="Password" CssClass="input"></asp:TextBox>
                 <i class='bx bx-lock-alt'></i>
             </div>
 
@@ -35,19 +35,18 @@
 
             <div class="two-col">
                 <div class="one">
-                    <input type="checkbox" name="" id="check">
-                    <label for="check"> Remember Me</label>
+                    <asp:CheckBox ID="RememberMeCheckBox" runat="server" Text="Remember Me" />
                 </div>
                 <div class="two">
-                    <label><a href="#">Forgot password?</a></label>
+                    <asp:HyperLink ID="ForgotPasswordLink" runat="server" NavigateUrl="ForgotPassword.aspx" Text="Forgot password?" />
                 </div>
             </div>
             <div class="two-col">
                 <div class="one">
-                    <asp:Button ID ="Google_btn" runat="server" Text="Google" CssClass="g-btn" OnClick="Google_btn_Click" />
+                    <asp:Button ID ="Google_btn" runat="server" Text="Google" CssClass="g-btn"  />
                 </div>
                 <div>
-                   <asp:Button ID ="Fb_btn" runat="server" Text="Facebook" CssClass="f-btn" OnClick="Fb_btn_Click" />
+                   <asp:Button ID ="Fb_btn" runat="server" Text="Facebook" CssClass="f-btn" />
                 </div>
             </div>
             

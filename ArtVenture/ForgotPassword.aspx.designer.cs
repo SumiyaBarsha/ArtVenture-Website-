@@ -11,34 +11,43 @@ namespace ArtVenture
 {
 
 
-    public partial class Home
+    public partial class ForgotPassword
     {
 
         /// <summary>
-        /// Signup_btn control.
+        /// EmailTxt control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Signup_btn;
+        protected global::System.Web.UI.WebControls.TextBox EmailTxt;
 
         /// <summary>
-        /// Login_btn control.
+        /// PasswordTxt control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Login_btn;
+        protected global::System.Web.UI.WebControls.TextBox PasswordTxt;
 
         /// <summary>
-        /// MainMenu control.
+        /// RetypePasswordTxt control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Menu MainMenu;
+        protected global::System.Web.UI.WebControls.TextBox RetypePasswordTxt;
+
+        /// <summary>
+        /// ResetPasswordBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ResetPasswordBtn;
     }
 }

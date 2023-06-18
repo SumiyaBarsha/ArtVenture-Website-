@@ -15,13 +15,19 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-     <header class="header-content">
+   <%-- <% if (Session["username"] == null) { %>
+        <asp:Button ID="Login_btn" runat="server" Text="Login" CssClass="login-button" PostBackUrl="~/Login.aspx" />
+    <% } else { %>
+        <asp:Button ID="Log" runat="server" Text="Logout" CssClass="login-button" OnClick="Login_btn_Click" />
+    <% } %>--%>
+
+    <header class="header-content">
         <div style="margin-top:30px;display:grid;
     grid-template-columns: 190px  30px 700px 120px 120px">
             <div>
                 <h2 class="site-name">ArtVenture</h2>
             </div>
-            <div><img class="icon" src="img/palette(1).png" style="height:20px;width:30px;"></div>
+            <div></div>
             <div>
                 <div class="container">
                     <form action="">
@@ -31,7 +37,7 @@
                     </form>
                 </div>
             </div>
-           <div> <asp:Button ID="Signup_btn" runat="server" Text="SIGN UP" CssClass="signup-button" OnClick="Signup_btn_Click" /></div>
+           <div> <asp:Button ID="Signup_btn" runat="server" Text="SIGN UP" CssClass="signup-button"  OnClick="Signup_btn_Click" /></div>
           <div> <asp:Button ID="Login_btn" runat="server" Text="LOG IN" CssClass="login-button" OnClick="Login_btn_Click" /></div>
 
             <div></div>
@@ -44,24 +50,20 @@
     </header>
 
     <section>
-        <div class="dropdown-menu">
-            <ul>
-                <li class="active"><a href="Home.aspx">Home </a> </li>
-                <li><a href="Category.aspx">Artworks</a>
-                </li>
-                <li><a href="Cart.aspx">My Cart</a></li>
-                <li><a href="Favourites.aspx">Favourites</a></li>
-                <li><a href="#">Settings</a>
-                    <div class="artwork-menu">
-                        <ul>
-                            <li><a href="#">My Profile</a></li>
-                            <li><a href="#">My Orders</a></li>
-                        </ul>
-
-                    </div>
-                </li>
-            </ul>
-        </div>
+        <div style="display:grid;width:100%; grid-template-columns: 1fr 1fr 1fr 1fr 1fr  ">
+        <asp:Menu ID="MainMenu" runat="server"  CssClass="dropdown-menu ">
+    <Items>
+        <asp:MenuItem Text="Home" NavigateUrl="~/Home.aspx" Selected="true" />
+        <asp:MenuItem Text="Artworks" NavigateUrl="~/Category.aspx" />
+        <asp:MenuItem Text="My Cart" NavigateUrl="~/Cart.aspx" />
+        <asp:MenuItem Text="Favourites" NavigateUrl="~/Favourites.aspx" />
+        <asp:MenuItem Text="Settings">
+            <asp:MenuItem Text="My Profile" />
+            <asp:MenuItem Text="My Orders" />
+        </asp:MenuItem>
+    </Items>
+</asp:Menu>
+            </div>
     </section>
 
     <section>
@@ -70,28 +72,28 @@
         </p>
         <div style="margin-top:50px;display:grid;grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr">
             <div><img class="category" src="img/Piece for Peace Sculpture.jfif">
-                <p class="category-name"><a href="#">Sculpture</a></p>
+                <p class="category-name">Sculpture</p>
             </div>
             <div><img class="category" src="img/clearwater.jpg">
-                <p class="category-name"><a href="#">Painting</a></p>
+                <p class="category-name">Painting</p>
             </div>
             <div><img class="category" src="img/garden3.jfif">
-                <p class="category-name"><a href="#">Prints</a></p>
+                <p class="category-name">Prints</p>
             </div>
             <div><img class="category" src="img/Ronnie Hughes - Piedmont Craftsmen.jfif">
-                <p class="category-name"><a href="#">Glass Art</a></p>
+                <p class="category-name">Glass Art</p>
             </div>
             <div><img class="category" src="img/illustration.png">
-                <p class="category-name"><a href="#">Drawing and Illustration</a></p>
+                <p class="category-name">Drawing and Illustration</p>
             </div>
             <div><img class="category" src="img/Photography.jfif">
-                <p class="category-name"><a href="#">Photography</a></p>
+                <p class="category-name">Photography</p>
             </div>
             <div><img class="category" src="img/Embroidery.jfif">
-                <p class="category-name"><a href="#">Fiber Arts</a></p>
+                <p class="category-name">Fiber Arts</p>
             </div>
             <div><img class="category" src="img/Dollhouse Miniature.jfif">
-                <p class="category-name"><a href="#">Miniature</a></p>
+                <p class="category-name">Miniature</p>
             </div>
         </div>
 

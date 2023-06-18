@@ -70,6 +70,7 @@
     <Content Include="Cart.aspx" />
     <Content Include="category.aspx" />
     <Content Include="Favourites.aspx" />
+    <Content Include="ForgotPassword.aspx" />
     <Content Include="Home.aspx" />
     <Content Include="img\animebg.jfif" />
     <Content Include="img\artsy %281%29.jfif" />
@@ -143,6 +144,13 @@
     </Compile>
     <Compile Include="Favourites.aspx.designer.cs">
       <DependentUpon>Favourites.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ForgotPassword.aspx.cs">
+      <DependentUpon>ForgotPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ForgotPassword.aspx.designer.cs">
+      <DependentUpon>ForgotPassword.aspx</DependentUpon>
     </Compile>
     <Compile Include="Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>
