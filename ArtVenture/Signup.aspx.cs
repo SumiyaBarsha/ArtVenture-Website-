@@ -7,16 +7,20 @@ using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Security.Cryptography;
 
 namespace ArtVenture
 {
     public partial class Signup : System.Web.UI.Page
     {
         string strcon = ConfigurationManager.ConnectionStrings["dbconnection"].ConnectionString;
+
         protected void Page_Load(object sender, EventArgs e)
         {
+       
 
         }
+
         protected void Register_btn_Click(object sender, EventArgs e)
         {
             if (ValidateInputs())
@@ -26,14 +30,24 @@ namespace ArtVenture
                     SqlConnection con = new SqlConnection(strcon);
                     con.Open();
 
-                    SqlCommand cmd = new SqlCommand("INSERT INTO register ([username], [email], [password], [category]) VALUES (@username, @email, @password, @category)", con);
+                    // Generate a unique user ID
+                   string userId = Guid.NewGuid().ToString();
 
+                    SqlCommand cmd = new SqlCommand("INSERT INTO signup ([userId], [username], [email], [password], [category]) VALUES (@userid, @username, @email, @password, @category)", con);
+
+                    cmd.Parameters.AddWithValue("@userid", userId);
+                    Session["userId"] = userId;
                     cmd.Parameters.AddWithValue("@username", Usernametxt.Text.Trim());
                     cmd.Parameters.AddWithValue("@email", Useremailtxt.Text.Trim());
-                    cmd.Parameters.AddWithValue("@password", Userpasstxt.Text.Trim());
+
+                    // Generate the hash of the password
+                    string hashedPassword = HashPassword(Userpasstxt.Text.Trim());
+                    cmd.Parameters.AddWithValue("@password", hashedPassword);
+
                     cmd.Parameters.AddWithValue("@category", Usercategory.SelectedValue);
 
                     cmd.ExecuteNonQuery();
+                 
 
                     // Close the connection
                     con.Close();
@@ -42,12 +56,36 @@ namespace ArtVenture
                     Response.Write("<script>alert('Registration Successful!');</script>");
                     Response.Redirect("~/Login.aspx");
                 }
+                catch (SqlException ex)
+                {
+                    Response.Write("<script>alert('SQL Error: " + ex.Message + "');</script>");
+                }
                 catch (Exception ex)
                 {
                     Response.Write("<script>alert('Error: " + ex.Message + "');</script>");
                 }
             }
         }
+
+        private string HashPassword(string password)
+        {
+            // Generate a salt
+            byte[] salt;
+            new RNGCryptoServiceProvider().GetBytes(salt = new byte[16]);
+
+            // Create the hash and combine the salt
+            var pbkdf2 = new Rfc2898DeriveBytes(password, salt, 10000);
+            byte[] hash = pbkdf2.GetBytes(20);
+            byte[] hashBytes = new byte[36];
+            Array.Copy(salt, 0, hashBytes, 0, 16);
+            Array.Copy(hash, 0, hashBytes, 16, 20);
+
+            // Convert the combined salt and hash to a string
+            string savedPasswordHash = Convert.ToBase64String(hashBytes);
+
+            return savedPasswordHash;
+        }
+
         private bool ValidateInputs()
         {
             // Check if the username is empty
@@ -126,4 +164,4 @@ namespace ArtVenture
             Response.Write("<script>alert('" + message + "');</script>");
         }
     }
-    }
+}

@@ -114,12 +114,14 @@
     <Content Include="Payment.aspx" />
     <Content Include="PicDetail.aspx" />
     <Content Include="Profile.aspx" />
+    <Content Include="SellerPage.aspx" />
     <Content Include="Signup.aspx" />
     <Content Include="styles\cart_style.css" />
     <Content Include="styles\home_style.css" />
     <Content Include="styles\login_style.css" />
     <Content Include="styles\payment_style.css" />
     <Content Include="styles\profile_style.css" />
+    <Content Include="styles\seller_style.css" />
     <Content Include="styles\signup_style.css" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -188,6 +190,13 @@
       <DependentUpon>Profile.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SellerPage.aspx.cs">
+      <DependentUpon>SellerPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SellerPage.aspx.designer.cs">
+      <DependentUpon>SellerPage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Signup.aspx.cs">
       <DependentUpon>Signup.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -264,7 +273,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Uploads\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

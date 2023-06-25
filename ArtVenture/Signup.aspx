@@ -23,12 +23,12 @@
 
                 <div class="form-group">
                     <label for="body_Userpasstxt">Password</label>
-                <asp:TextBox ID="Userpasstxt" runat="server" CssClass="input"></asp:TextBox>
+                <asp:TextBox ID="Userpasstxt" runat="server" CssClass="input" TextMode="Password"></asp:TextBox>
                 </div>
 
                 <div class="form-group">
                     <label for="body_Userpass2txt">Retype password</label>
-                <asp:TextBox ID="Userpass2txt" runat="server" CssClass="input"></asp:TextBox>
+                <asp:TextBox ID="Userpass2txt" runat="server" CssClass="input" TextMode="Password"></asp:TextBox>
                 </div>
 
                     <div class="col-md-6">

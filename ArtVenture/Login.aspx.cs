@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -34,35 +35,50 @@ namespace ArtVenture
                 SqlConnection con = new SqlConnection(strcon);
                 con.Open();
 
-                SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM register WHERE [username] = @username", con);
+                SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM signup WHERE [username] = @username", con);
                 cmd.Parameters.AddWithValue("@username", username);
 
                 int count = Convert.ToInt32(cmd.ExecuteScalar());
 
                 if (count > 0)
                 {
-                    // User exists, check password
-                    cmd = new SqlCommand("SELECT [password] FROM register WHERE [username] = @username", con);
+                    // User exists, check password and category
+                    cmd = new SqlCommand("SELECT [password], [category] FROM signup WHERE [username] = @username", con);
                     cmd.Parameters.AddWithValue("@username", username);
 
-                    string storedPassword = cmd.ExecuteScalar().ToString();
+                    SqlDataReader reader = cmd.ExecuteReader();
 
-                    if (password == storedPassword)
+                    if (reader.Read())
                     {
-                        // Password matches, login successful
-                        Session["username"] = username;
-                        Response.Redirect("~/Home.aspx");
+                        string storedPasswordHash = reader["password"].ToString();
+                        string category = reader["category"].ToString();
+
+                        // Verify the password
+                        if (VerifyPassword(password, storedPasswordHash))
+                        {
+                            // Password matches, login successful
+                            Session["username"] = username;
+
+                            if (category == "Buyer")
+                            {
+                                Response.Redirect("~/Home.aspx");
+                            }
+                            else if (category == "Seller")
+                            {
+                                Response.Redirect("~/SellerPage.aspx");
+                            }
+                        }
+                        else
+                        {
+                            // Password does not match
+                            Response.Write("<script>alert('Invalid password.');</script>");
+                        }
                     }
                     else
                     {
-                        // Password does not match
-                        Response.Write("<script>alert('Invalid password.');</script>");
+                        // User does not exist
+                        Response.Write("<script>alert('Invalid username.');</script>");
                     }
-                }
-                else
-                {
-                    // User does not exist
-                    Response.Write("<script>alert('Invalid username.');</script>");
                 }
 
 
@@ -88,6 +104,31 @@ namespace ArtVenture
                 Response.Write("<script>alert('Error: " + ex.Message + "');</script>");
             }
         }
+        private bool VerifyPassword(string enteredPassword, string storedPasswordHash)
+        {
+            // Convert the stored hash string to bytes
+            byte[] hashBytes = Convert.FromBase64String(storedPasswordHash);
+
+            // Extract the salt from the hashBytes
+            byte[] salt = new byte[16];
+            Array.Copy(hashBytes, 0, salt, 0, 16);
+
+            // Compute the hash of the entered password using the extracted salt
+            var pbkdf2 = new Rfc2898DeriveBytes(enteredPassword, salt, 10000);
+            byte[] enteredHash = pbkdf2.GetBytes(20);
+
+            // Compare the entered hash with the stored hash
+            for (int i = 0; i < 20; i++)
+            {
+                if (hashBytes[i + 16] != enteredHash[i])
+                {
+                    return false; // Passwords don't match
+                }
+            }
+
+            return true; // Passwords match
+        }
+
 
     }
 }
