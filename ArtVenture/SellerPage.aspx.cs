@@ -5,14 +5,14 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Web;
-using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace ArtVenture
 {
     public partial class SellerPage : System.Web.UI.Page
     {
-        string strcon = ConfigurationManager.ConnectionStrings["dbconnection"].ConnectionString;  
-        
+        string strcon = ConfigurationManager.ConnectionStrings["dbconnection"].ConnectionString;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -22,6 +22,14 @@ namespace ArtVenture
 
                 // Set the welcome message
                 welcomeLiteral.Text = "Welcome " + username;
+
+                BindProductList();
+
+            }
+            if (IsPostBack)
+            {
+                BindProductList();
+
             }
         }
 
@@ -41,34 +49,39 @@ namespace ArtVenture
                 string imageDesc = imageDescTxt.Text.Trim();
 
                 string userId = Session["userId"] as string;
+                string idImage = imageId + userId;
 
+                string uploadFolderPath = Server.MapPath("~/img/Uploads/");
                 // Save the uploaded image to a folder
                 if (fileUpload.HasFile)
                 {
+                    string fileName = Path.GetFileName(fileUpload.FileName);
+                    string fileExtension = Path.GetExtension(fileName);
                     HttpPostedFile selectedfile = fileUpload.PostedFile;
-                    string fileExtension = Path.GetExtension(selectedfile.FileName);
-                 
-                   
-                    // Check if the file extension is allowed (e.g., restrict to images)
+
+
                     string[] allowedExtensions = { ".jpg", ".jpeg", ".png", ".gif" };
                     if (allowedExtensions.Contains(fileExtension.ToLower()))
                     {
-                        string imgName= selectedfile.FileName;
-                        string uploadFolderPath = Server.MapPath("~/Uploads/");
-                        if(!Directory.Exists(uploadFolderPath))
+                        if (!Directory.Exists(uploadFolderPath))
                         {
                             Directory.CreateDirectory(uploadFolderPath);
                         }
-                        // Save the file to the server
-                        string filePath = Path.Combine(uploadFolderPath, imgName);
+
+                        string imgName = selectedfile.FileName;
+                        string filePath = Path.Combine(uploadFolderPath, fileName);
                         selectedfile.SaveAs(filePath);
-                       // selectedfile.SaveAs(uploadFolderPath+imageName);
-                        uploadedImage.ImageUrl = "~/Uploads/" + imgName;
+
+                        // Save the file path to the server
+                        string imagePath = "~/img/Uploads/" + fileName;
+
 
                         BinaryReader br = new BinaryReader(selectedfile.InputStream);
                         byte[] imgData = br.ReadBytes(selectedfile.ContentLength);
                         Session["Photoname"] = imgName;
                         Session["Photobinary"] = imgData;
+
+                        uploadedImage.ImageUrl = "~/img/Uploads/" + fileName;
 
                         // Insert the image details into the SQL table "pic_detail"
                         using (SqlConnection con = new SqlConnection(strcon))
@@ -76,8 +89,8 @@ namespace ArtVenture
                             con.Open();
                             SqlCommand cmd = new SqlCommand("INSERT INTO pic_detail ([Img], [Img_id], [Img_name], [Img_price], [Img_type], [Img_frame], [Img_medium], [Img_desc], [userId])" +
                                 " VALUES (@Img, @Img_id, @Img_name, @Img_price, @Img_type, @Img_frame, @Img_medium, @Img_desc, @userId)", con);
-                            cmd.Parameters.AddWithValue("@Img", imgData);
-                            cmd.Parameters.AddWithValue("@Img_id", imageId);
+                            cmd.Parameters.AddWithValue("@Img", imagePath);
+                            cmd.Parameters.AddWithValue("@Img_id", idImage);
                             cmd.Parameters.AddWithValue("@Img_name", imageName);
                             cmd.Parameters.AddWithValue("@Img_price", imagePrice);
                             cmd.Parameters.AddWithValue("@Img_type", imageType);
@@ -85,11 +98,22 @@ namespace ArtVenture
                             cmd.Parameters.AddWithValue("@Img_medium", imageMedium);
                             cmd.Parameters.AddWithValue("@Img_desc", imageDesc);
                             cmd.Parameters.AddWithValue("@userId", userId);
-                            cmd.ExecuteNonQuery();
+                            // cmd.ExecuteNonQuery();
+                            int rowsAffected = cmd.ExecuteNonQuery();
+                            if (rowsAffected > 0)
+                            {
+                                messageLabel.Text = "Image uploaded successfully.";
+                                ClearUploadForm();
+                            }
+                            else
+                            {
+                                messageLabel.Text = "Failed to upload image.";
+                            }
                         }
 
                         // Display success message or redirect to a different page
-                        Response.Write("<script>alert('Image uploaded successfully.');</script>");
+                        // Response.Write("<script>alert('Image uploaded successfully.');</script>");
+                        BindProductList();
                         ClearUploadForm();
                     }
                     else
@@ -106,12 +130,35 @@ namespace ArtVenture
                     errorMessage += " Inner Exception: " + ex.InnerException.Message;
                 Response.Write("<script>alert('" + errorMessage + "');</script>");
             }
-        
+
             catch (Exception ex)
             {
                 // Handle the exception
                 Response.Write("<script>alert('Error: " + ex.Message + "');</script>");
             }
+        }
+
+        protected void LogoutButton_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Login.aspx");
+            Session.Clear();
+            Session.Abandon();
+            Response.Cookies.Clear();
+        }
+
+        private void ClearUploadForm()
+        {
+            imageIdTxt.Text = "";
+            imageNameTxt.Text = "";
+            imagePriceTxt.Text = "";
+            imageTypeTxt.Text = "";
+            imageFrameTxt.Text = "";
+            imageMediumTxt.Text = "";
+            imageDescTxt.Text = "";
+            uploadedImage.ImageUrl = "";
+            Session["Photoname"] = null;
+            Session["Photobinary"] = null;
+            fileUpload.Dispose(); // Clear the selected file
         }
 
         private int GetOrderCount()
@@ -135,70 +182,100 @@ namespace ArtVenture
             return count;
         }
 
-        private DataTable GetProducts()
-        {
-            DataTable productsTable = new DataTable();
-            using (SqlConnection con = new SqlConnection(strcon))
-            {
-                SqlCommand cmd = new SqlCommand("SELECT [Img], [Img_name], [Img_price] FROM pic_detail", con);
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                da.Fill(productsTable);
-            }
-            // Convert the byte array image data to base64 strings
-            foreach (DataRow row in productsTable.Rows)
-            {
-                byte[] imgData = (byte[])row["Img"];
-                string base64Image = Convert.ToBase64String(imgData);
-                row["Img"] = base64Image;
-            }
-            return productsTable;
-        }
-
         private void BindProductList()
         {
-            DataTable productsTable = GetProducts();
+            string userId = Session["userId"] as string;
 
-            foreach (DataRow row in productsTable.Rows)
+            using (SqlConnection con = new SqlConnection(strcon))
             {
-                string base64Image = row["Img"].ToString();
-                string imageUrl = "data:image;base64," + base64Image;
-                string productName = row["Img_name"].ToString();
-                string productPrice = row["Img_price"].ToString();
+                using (SqlCommand cmd = new SqlCommand("SELECT [Img], [Img_id], [Img_name], [Img_price] FROM pic_detail WHERE userId = @userId", con))
+                {
+                    cmd.Parameters.AddWithValue("@userId", userId);
 
-                // Create HTML markup for the product item
-                string productItemHtml = $@"
-        <li>
-            <div class='product'>
-                <img src='{imageUrl}' alt='{productName}' />
-                <h3>{productName}</h3>
-                <p>{productPrice}</p>
-                <a href='#' class='edit-btn'>Edit</a>
-                <a href='#' class='delete-btn'>Delete</a>
-            </div>
-        </li>";
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
 
-                // Add the product item markup to the product list placeholder
-                productListPlaceholder.Controls.Add(new LiteralControl(productItemHtml));
+                        productRepeater.DataSource = dt;
+                        productRepeater.DataBind();
+                    }
+                }
             }
         }
 
-        private void ClearUploadForm()
+        protected void productRepeater_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
-            imageIdTxt.Text = "";
-            imageNameTxt.Text = "";
-            imagePriceTxt.Text = "";
-            imageTypeTxt.Text = "";
-            imageFrameTxt.Text = "";
-            imageMediumTxt.Text = "";
-            imageDescTxt.Text = "";
-            uploadedImage.ImageUrl = "";
-            Session["Photoname"] = null;
-            Session["Photobinary"] = null;
-           // fileUpload.Dispose(); // Clear the selected file
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                DataRowView rowView = e.Item.DataItem as DataRowView;
+                if (rowView != null)
+                {
+                    string imageUrl = rowView["Img"].ToString();
+                    Image productImage = e.Item.FindControl("productImage") as Image;
+                    if (productImage != null)
+                    {
+                        productImage.ImageUrl = ResolveUrl(imageUrl);
+                    }
+                }
+                
+            }
+           
         }
 
+        protected string GetImageSource(object imgData)
+        {
+            string imageUrl = imgData.ToString();
+            return ResolveUrl(imageUrl);
+        }
+
+
+        protected void DeleteButton_Click(object sender, EventArgs e)
+        {
+            // Get the button that triggered the event
+            LinkButton deleteButton = sender as LinkButton;
+
+            // Find the corresponding RepeaterItem
+            RepeaterItem item = deleteButton.NamingContainer as RepeaterItem;
+
+            if (item != null)
+            {
+                // Get the image ID associated with the RepeaterItem
+                string imageId = (item.FindControl("imageIdHiddenField") as HiddenField)?.Value;
+
+                // Delete the image with the given imageId
+                DeleteImage(imageId);
+            }
+        }
+
+
+        private void DeleteImage(string imageId)
+        {
+            if (!string.IsNullOrEmpty(imageId))
+            {
+                using (SqlConnection con = new SqlConnection(strcon))
+                {
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand("DELETE FROM pic_detail WHERE Img_id = @Img_id", con);
+                    cmd.Parameters.AddWithValue("@Img_id", imageId);
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    if (rowsAffected > 0)
+                    {
+                        // Image deleted successfully
+                        Response.Write("<script>alert('Image deleted successfully.');</script>");
+                        BindProductList();
+                    }
+                    else
+                    {
+                        // Failed to delete image
+                        Response.Write("<script>alert('Failed to delete image.');</script>");
+                    }
+                }
+            }
+        }
 
     }
 }
+
 
 

@@ -123,12 +123,30 @@ namespace ArtVenture
         protected global::System.Web.UI.WebControls.Button uploadBtn;
 
         /// <summary>
-        /// productListPlaceholder control.
+        /// messageLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl productListPlaceholder;
+        protected global::System.Web.UI.WebControls.Label messageLabel;
+
+        /// <summary>
+        /// LogoutBtn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button LogoutBtn;
+
+        /// <summary>
+        /// productRepeater control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater productRepeater;
     }
 }

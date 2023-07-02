@@ -46,10 +46,9 @@
             
             <div class="right">
               <span class="loginwith">Sign in with<br />social network</span>
-              
-              <asp:Button ID="Regfb_btn" runat="server" Width="220px" CssClass="social-signin facebook" Text="Log in with facebook" />
-             <asp:Button ID="Regtwt_btn" runat="server" Width="220px" CssClass="social-signin twitter" Text="Log in with Twitter"/>
-              <asp:Button ID="Regglg_btn" runat="server" Width="220px" CssClass="social-signin google" Text="Log in with Google" />
+            
+                 <asp:Button ID="HomeButton" runat="server" Width="220px" CssClass="social-signin facebook" Text="Back to Home" OnClick="Home_btn_Click" />
+
             </div>
             <div class="or">OR</div>
         </div>

@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 
@@ -20,6 +15,11 @@ namespace ArtVenture
             {
                 UpdateLoginButtonText();
             }
+            if (Session["LoggedIn"] != null && (bool)Session["LoggedIn"])
+            {
+                Login_btn.Text = "Logout"; // Change the button text to "Logout"
+                Signup_btn.Visible = false; // Hide the Signup button
+            }
         }
         protected void Signup_btn_Click(object sender, EventArgs e)
         {
@@ -27,7 +27,7 @@ namespace ArtVenture
         }
         protected void Login_btn_Click(object sender, EventArgs e)
         {
-            if(Session["username"] == null)
+            if (Session["username"] == null)
             {
                 // User is not logged in, redirect to login page
                 Response.Redirect("~/Login.aspx");
@@ -44,13 +44,43 @@ namespace ArtVenture
         {
             if (Session["username"] == null)
             {
-               // LoginBtn.Text = "Login";
+                // LoginBtn.Text = "Login";
             }
             else
             {
-              //  Logout_btn.Text = "Logout";
+                //  Logout_btn.Text = "Logout";
             }
         }
-    }
+
+        protected void Button_Command(object sender, CommandEventArgs e)
+        {
+            Button button = (Button)sender;
+
+            if (e.CommandName == "Toggle_Log")
+            {
+                button.Text = "Logout";
+
+                // Add your logic for adding the item to the cart
+            }
+
+        }
+
+        protected void menu_MenuItemClick(object sender, MenuEventArgs e)
+        {
+            if (e.Item.Value == "MyOrders")
+            {
+                // Handle the click event of the "My Orders" menu item
+                // Redirect to the My Orders page or perform any other desired action
+                Response.Redirect("~/MyOrders.aspx");
+            }
+            if (e.Item.Value == "MyProfile")
+            {
+                // Handle the click event of the "My Orders" menu item
+                // Redirect to the My Orders page or perform any other desired action
+                Response.Redirect("~/Profile.aspx");
+            }
+        }
 
     }
+
+}

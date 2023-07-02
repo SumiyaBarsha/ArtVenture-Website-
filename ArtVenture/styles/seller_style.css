@@ -1,5 +1,5 @@
 ﻿.container {
-    max-width: 800px;
+    width: 1000px; /* Set a fixed width */
     margin: 0 auto;
     padding: 20px;
     text-align: center;
@@ -109,4 +109,32 @@ p {
     .edit-btn:hover,
     .delete-btn:hover {
         background-color: #2980b9;
+    }
+
+.message {
+    color: #ff0000; /* Red color for error messages */
+    font-weight: bold;
+}
+
+.follow-btn {
+    background-color: white;
+    border-color: black;
+    border-style: solid;
+    border-width: 2px;
+    color: black;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 15px;
+    cursor: pointer;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    height: 30px;
+    transition: background-color 0.15s,color 0.15s;
+}
+
+    .follow-btn:hover {
+        background-color: black;
+        color: white;
     }

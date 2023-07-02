@@ -1,8 +1,21 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="SellerPage.aspx.cs" Inherits="ArtVenture.SellerPage" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="SellerPage.aspx.cs" EnableEventValidation="false" Inherits="ArtVenture.SellerPage" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <title>Seller Page</title>
     <link rel="stylesheet" href="styles/seller_style.css">
+     <script>
+        function showPreviewImage() {
+            var fileInput = document.getElementById('<%= fileUpload.ClientID %>');
+            if (fileInput.files && fileInput.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var previewImage = document.getElementById('<%= uploadedImage.ClientID %>');
+                    previewImage.src = e.target.result;
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            }
+        }
+     </script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -45,37 +58,39 @@
           <asp:Image ID="uploadedImage" runat="server" CssClass="uploaded-image" />
         </div>
         <div class="form-item">
-          <asp:FileUpload ID="fileUpload" runat="server" />
+          <asp:FileUpload ID="fileUpload" runat="server" onchange="showPreviewImage()"/>
         </div>
       </div>
     </div>
-    <asp:Button ID="uploadBtn" runat="server" Text="Upload" CssClass="upload-btn" OnClick="UploadButton_Click" />
+    <div>
+        <div><asp:Button ID="uploadBtn" runat="server" Text="Upload" CssClass="follow-btn" OnClick="UploadButton_Click" /></div>
+        <div><asp:Label ID="messageLabel" runat="server" CssClass="message"></asp:Label></div>
+    </div>
+    <div><asp:Button ID="LogoutBtn" runat="server" Text="Logout" CssClass="follow-btn" OnClick="LogoutButton_Click" /></div>
+
   </div>
 
   <div class="product-list">
-    <h2>Product List</h2>
-    <ul runat="server" id="productListPlaceholder">
-      <li>
+  <h2>Product List</h2>
+  <div class="row" style="display:grid;grid-template-columns: 1fr 1fr 1fr">
+    <asp:Repeater runat="server" ID="productRepeater" OnItemDataBound="productRepeater_ItemDataBound">
+      <ItemTemplate>
+    <div class="col-md-3">
         <div class="product">
-          <img src="product1.jpg" alt="Product 1" />
-          <h3>Product 1</h3>
-          <p>Description of Product 1</p>
-          <a href="#" class="edit-btn">Edit</a>
-          <a href="#" class="delete-btn">Delete</a>
+            <asp:Image ID="productImage" runat="server" Height="175" Width="210" ImageUrl='<%# GetImageSource(DataBinder.Eval(Container.DataItem, "Img")) %>' AlternateText='<%# Eval("Img_name") %>' />
+
+            <h3><%# Eval("Img_name") %></h3>
+            <p>Product ID: <%# Eval("Img_id") %></p>
+            <p>Price: $<%# Eval("Img_price") %></p>
+          <asp:LinkButton ID="deleteButton" runat="server" Text="Delete" CssClass="delete-btn" OnClick="DeleteButton_Click" OnClientClick="return confirm('Are you sure you want to delete this image?');" />
+            <asp:HiddenField ID="imageIdHiddenField" runat="server" Value='<%# Eval("Img_id") %>' />
+
         </div>
-      </li>
-      <li>
-        <div class="product">
-          <img src="product2.jpg" alt="Product 2" />
-          <h3>Product 2</h3>
-          <p>Description of Product 2</p>
-          <a href="#" class="edit-btn">Edit</a>
-          <a href="#" class="delete-btn">Delete</a>
-        </div>
-      </li>
-      <!-- Add more product items here -->
-    </ul>
+    </div>
+</ItemTemplate>
+    </asp:Repeater>
   </div>
 </div>
+    </div>
 
 </asp:Content>

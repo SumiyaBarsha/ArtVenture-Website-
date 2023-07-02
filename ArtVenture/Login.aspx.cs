@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Security.Cryptography;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace ArtVenture
 {
@@ -15,16 +10,10 @@ namespace ArtVenture
         string strcon = ConfigurationManager.ConnectionStrings["dbconnection"].ConnectionString;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                if (Request.Cookies["username"] != null && Request.Cookies["password"] != null)
-                {
-                    Usernametxt.Text = Request.Cookies["username"].Value;
-                    Passwordtxt.Attributes["value"] = Request.Cookies["password"].Value;
-                    RememberMeCheckBox.Checked = true;
-                }
-            }
+            
         }
+
+
         protected void Signin_btn_Click(object sender, EventArgs e)
         {
             try
@@ -43,7 +32,7 @@ namespace ArtVenture
                 if (count > 0)
                 {
                     // User exists, check password and category
-                    cmd = new SqlCommand("SELECT [password], [category] FROM signup WHERE [username] = @username", con);
+                    cmd = new SqlCommand("SELECT [password],[userId], [category] FROM signup WHERE [username] = @username", con);
                     cmd.Parameters.AddWithValue("@username", username);
 
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -52,16 +41,19 @@ namespace ArtVenture
                     {
                         string storedPasswordHash = reader["password"].ToString();
                         string category = reader["category"].ToString();
+                        string userId = reader["userId"].ToString();
 
                         // Verify the password
                         if (VerifyPassword(password, storedPasswordHash))
                         {
                             // Password matches, login successful
                             Session["username"] = username;
+                            Session["userId"] = userId;
+                            Session["LoggedIn"] = true;
 
                             if (category == "Buyer")
                             {
-                                Response.Redirect("~/Home.aspx");
+                                Response.Redirect("~/Home.aspx?hideSignup=true");
                             }
                             else if (category == "Seller")
                             {
@@ -82,20 +74,8 @@ namespace ArtVenture
                 }
 
 
-                if (RememberMeCheckBox.Checked)
-                {
-                    // Set cookies to remember the username and password
-                    Response.Cookies["username"].Value = Usernametxt.Text.Trim();
-                    Response.Cookies["password"].Value = Passwordtxt.Text.Trim();
-                    Response.Cookies["username"].Expires = DateTime.Now.AddDays(7); // Cookie expiration time
-                    Response.Cookies["password"].Expires = DateTime.Now.AddDays(7);
-                }
-                else
-                {
-                    // Clear cookies
-                    Response.Cookies["username"].Expires = DateTime.Now.AddDays(-1);
-                    Response.Cookies["password"].Expires = DateTime.Now.AddDays(-1);
-                }
+                // Set the session variable to indicate that the user is logged in
+                Session["LoggedIn"] = true;
 
                 con.Close();
             }

@@ -1,0 +1,66 @@
+﻿
+.container {
+    margin: 20px;
+    background-color: darkgray;
+}
+
+h1 {
+    text-align: center;
+}
+
+.gridview {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+    .gridview th {
+        background-color: #f2f2f2;
+        padding: 8px;
+        text-align: left;
+    }
+
+    .gridview td {
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .gridview tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .gridview tr:hover {
+        background-color: #ddd;
+    }
+
+
+.site-name {
+    display: inline-block;
+    margin-left: 20px;
+    font-family: lobster;
+    font-size: 36px;
+    margin-right: 0;
+    padding: 0;
+    color: #fff;
+}
+
+.icons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+}
+
+    .icons a {
+        color: white;
+        text-decoration: none;
+    }
+.newicons {
+    color: white;
+}
+
+    .newicons a {
+        color: white;
+        text-decoration: none;
+    }

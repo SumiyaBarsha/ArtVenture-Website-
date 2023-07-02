@@ -42,15 +42,6 @@ namespace ArtVenture
         protected global::System.Web.UI.WebControls.Button Signin_btn;
 
         /// <summary>
-        /// RememberMeCheckBox control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox RememberMeCheckBox;
-
-        /// <summary>
         /// ForgotPasswordLink control.
         /// </summary>
         /// <remarks>
@@ -58,23 +49,5 @@ namespace ArtVenture
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink ForgotPasswordLink;
-
-        /// <summary>
-        /// Google_btn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Google_btn;
-
-        /// <summary>
-        /// Fb_btn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Fb_btn;
     }
 }

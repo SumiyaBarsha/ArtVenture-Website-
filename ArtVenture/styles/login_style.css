@@ -83,7 +83,7 @@ i{
 .one{
     display: flex;
 }
-label a{
+label {
     text-decoration: none;
     color: #fff;
 }
@@ -138,4 +138,7 @@ label a{
 }
 .f-btn:active{
     opacity: 0.5;
+}
+a {
+    color: #ffffff;
 }

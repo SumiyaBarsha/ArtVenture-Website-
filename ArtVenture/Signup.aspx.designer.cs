@@ -69,30 +69,12 @@ namespace ArtVenture
         protected global::System.Web.UI.WebControls.Button Register_btn;
 
         /// <summary>
-        /// Regfb_btn control.
+        /// HomeButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Regfb_btn;
-
-        /// <summary>
-        /// Regtwt_btn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Regtwt_btn;
-
-        /// <summary>
-        /// Regglg_btn control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Regglg_btn;
+        protected global::System.Web.UI.WebControls.Button HomeButton;
     }
 }

@@ -1,0 +1,85 @@
+﻿*{
+    margin:0;
+}
+.site-name {
+    display: inline-block;
+    margin-left: 20px;
+    font-family: lobster;
+    font-size: 36px;
+    margin-right: 0;
+    padding: 0;
+    color: #fff;
+}
+.search-bar {
+    width: 20vw;
+    height: 7vh;
+    vertical-align: bottom;
+    border-radius: 3.5px;
+}
+
+.search-icon {
+    height: 7vh;
+    width: 20px;
+    margin: 0%;
+}
+
+
+.icons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+}
+
+    .icons a {
+        color: white;
+        text-decoration: none;
+    }
+
+.heart2 {
+    display: inline-block;
+    position: relative;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+}
+
+    .heart2:before {
+        content: "\f3dd";
+        font-family: "Boxicons";
+        font-size: 30px;
+        color: white;
+    }
+.bx {
+    font-size: 30px;
+}
+
+.container {
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.follow-btn {
+    background-color: white;
+    border-color: black;
+    border-style: solid;
+    border-width: 2px;
+    color: black;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 15px;
+    cursor: pointer;
+    margin-top: 15px;
+    height: 30px;
+    transition: background-color 0.15s,color 0.15s;
+}
+
+    .follow-btn:hover {
+        background-color: black;
+        color: white;
+    }

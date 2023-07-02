@@ -15,5 +15,12 @@
             </asp:ContentPlaceHolder>
         </div>
     </form>
+
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Your other scripts here -->
+
+    <asp:ContentPlaceHolder ID="script" runat="server">
+    </asp:ContentPlaceHolder>
 </body>
 </html>

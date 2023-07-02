@@ -44,6 +44,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -69,58 +72,39 @@
   <ItemGroup>
     <Content Include="Cart.aspx" />
     <Content Include="category.aspx" />
-    <Content Include="Favourites.aspx" />
+    <Content Include="category.js" />
+    <Content Include="img\Shoppingbag.jpg" />
+    <Content Include="Profile.aspx" />
+    <Content Include="styles\order_style.css" />
+    <Content Include="styles\profile_style.css" />
+    <Content Include="styles\wishlist_style.css" />
+    <Content Include="Wishlist.aspx" />
     <Content Include="ForgotPassword.aspx" />
     <Content Include="Home.aspx" />
     <Content Include="img\animebg.jfif" />
-    <Content Include="img\artsy %281%29.jfif" />
     <Content Include="img\artsy %282%29.jfif" />
-    <Content Include="img\bluewave.png" />
     <Content Include="img\clearwater.jpg" />
-    <Content Include="img\Dollhouse Miniature.jfif" />
     <Content Include="img\Embroidery.jfif" />
-    <Content Include="img\garden.jpg" />
-    <Content Include="img\garden2.png" />
     <Content Include="img\garden3.jfif" />
-    <Content Include="img\glitter.png" />
-    <Content Include="img\gradient.jpg" />
+    <Content Include="img\glassflower.jfif" />
     <Content Include="img\illustration.png" />
-    <Content Include="img\leaf.jfif" />
-    <Content Include="img\light.png" />
     <Content Include="img\light2.png" />
-    <Content Include="img\login.jpg" />
-    <Content Include="img\min1.png" />
-    <Content Include="img\min10.jfif" />
-    <Content Include="img\min2.jfif" />
-    <Content Include="img\min3.jfif" />
     <Content Include="img\min4.png" />
-    <Content Include="img\min5.png" />
-    <Content Include="img\min6.jfif" />
-    <Content Include="img\min7.jfif" />
-    <Content Include="img\min8.png" />
-    <Content Include="img\min9.jfif" />
-    <Content Include="img\palette%281%29.png" />
-    <Content Include="img\palette.png" />
+    <Content Include="img\peace.jfif" />
     <Content Include="img\Photography.jfif" />
-    <Content Include="img\Piece for Peace Sculpture.jfif" />
-    <Content Include="img\road.jfif" />
-    <Content Include="img\Ronnie Hughes - Piedmont Craftsmen.jfif" />
-    <Content Include="img\sea.jfif" />
     <Content Include="img\search.png" />
     <Content Include="img\searchicon.png" />
-    <Content Include="img\suzume.png" />
-    <Content Include="img\top_pic.jpg" />
     <Content Include="Login.aspx" />
-    <Content Include="Payment.aspx" />
     <Content Include="PicDetail.aspx" />
-    <Content Include="Profile.aspx" />
+    <Content Include="MyOrders.aspx" />
     <Content Include="SellerPage.aspx" />
     <Content Include="Signup.aspx" />
     <Content Include="styles\cart_style.css" />
+    <Content Include="styles\category_style.css" />
+    <Content Include="styles\detail_style.css" />
     <Content Include="styles\home_style.css" />
     <Content Include="styles\login_style.css" />
     <Content Include="styles\payment_style.css" />
-    <Content Include="styles\profile_style.css" />
     <Content Include="styles\seller_style.css" />
     <Content Include="styles\signup_style.css" />
     <Content Include="Web.config" />
@@ -140,12 +124,19 @@
     <Compile Include="category.aspx.designer.cs">
       <DependentUpon>category.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Favourites.aspx.cs">
-      <DependentUpon>Favourites.aspx</DependentUpon>
+    <Compile Include="Profile.aspx.cs">
+      <DependentUpon>Profile.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Favourites.aspx.designer.cs">
-      <DependentUpon>Favourites.aspx</DependentUpon>
+    <Compile Include="Profile.aspx.designer.cs">
+      <DependentUpon>Profile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Wishlist.aspx.cs">
+      <DependentUpon>Wishlist.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Wishlist.aspx.designer.cs">
+      <DependentUpon>Wishlist.aspx</DependentUpon>
     </Compile>
     <Compile Include="ForgotPassword.aspx.cs">
       <DependentUpon>ForgotPassword.aspx</DependentUpon>
@@ -168,13 +159,6 @@
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Payment.aspx.cs">
-      <DependentUpon>Payment.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Payment.aspx.designer.cs">
-      <DependentUpon>Payment.aspx</DependentUpon>
-    </Compile>
     <Compile Include="PicDetail.aspx.cs">
       <DependentUpon>PicDetail.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -182,12 +166,12 @@
     <Compile Include="PicDetail.aspx.designer.cs">
       <DependentUpon>PicDetail.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Profile.aspx.cs">
-      <DependentUpon>Profile.aspx</DependentUpon>
+    <Compile Include="MyOrders.aspx.cs">
+      <DependentUpon>MyOrders.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Profile.aspx.designer.cs">
-      <DependentUpon>Profile.aspx</DependentUpon>
+    <Compile Include="MyOrders.aspx.designer.cs">
+      <DependentUpon>MyOrders.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SellerPage.aspx.cs">
@@ -213,57 +197,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="img\artist1.webp" />
-    <Content Include="img\artist2.webp" />
-    <Content Include="img\artist3.webp" />
-    <Content Include="img\artist4.webp" />
-    <Content Include="img\artist5.webp" />
-    <Content Include="img\artist6.webp" />
-    <Content Include="img\artist7.webp" />
-    <Content Include="img\auction1.webp" />
-    <Content Include="img\auction2.webp" />
-    <Content Include="img\auction3.webp" />
-    <Content Include="img\auction4.webp" />
-    <Content Include="img\auction5.webp" />
-    <Content Include="img\auction6.webp" />
-    <Content Include="img\auction7.webp" />
-    <Content Include="img\auction8.webp" />
-    <Content Include="img\auction9.webp" />
-    <Content Include="img\fair1.webp" />
-    <Content Include="img\fair2.webp" />
-    <Content Include="img\gallery1.webp" />
-    <Content Include="img\gallery2.webp" />
-    <Content Include="img\gallery3.webp" />
-    <Content Include="img\gallery4.webp" />
-    <Content Include="img\gallery5.webp" />
-    <Content Include="img\gallery6.webp" />
-    <Content Include="img\gallery7.webp" />
-    <Content Include="img\painting1.avif" />
-    <Content Include="img\painting10.avif" />
-    <Content Include="img\painting11.avif" />
-    <Content Include="img\painting12.avif" />
-    <Content Include="img\painting13.avif" />
-    <Content Include="img\painting15.avif" />
-    <Content Include="img\painting16.avif" />
-    <Content Include="img\painting17.avif" />
-    <Content Include="img\painting18.avif" />
-    <Content Include="img\painting19.avif" />
-    <Content Include="img\painting2.webp" />
-    <Content Include="img\painting20.avif" />
-    <Content Include="img\painting21.avif" />
-    <Content Include="img\painting22.avif" />
-    <Content Include="img\painting23.avif" />
-    <Content Include="img\painting24.avif" />
-    <Content Include="img\painting3.avif" />
-    <Content Include="img\painting4.avif" />
-    <Content Include="img\painting5.avif" />
-    <Content Include="img\painting6.avif" />
-    <Content Include="img\painting6.webp" />
-    <Content Include="img\painting8.avif" />
-    <Content Include="img\painting9.avif" />
-    <Content Include="img\sculpture1.avif" />
-    <Content Include="img\sculpture2.avif" />
-    <Content Include="img\sculpture4.avif" />
+    <Content Include="libman.json" />
     <None Include="packages.config" />
     <Content Include="Site.Master" />
     <None Include="Web.Debug.config">
@@ -274,7 +208,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Uploads\" />
+    <Folder Include="img\ProfilePictures\" />
+    <Folder Include="img\Uploads\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

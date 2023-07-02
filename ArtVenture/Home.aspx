@@ -6,11 +6,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="true">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"> 
     <link
         href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Dancing+Script:wght@400;600;700&family=Lobster&family=Roboto+Flex:wght@100;500&family=Roboto:wght@300;500;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="styles/home_style.css" />
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -29,16 +30,10 @@
             </div>
             <div></div>
             <div>
-                <div class="container">
-                    <form action="">
-                        <input class="search-bar" type="text" placeholder="Search by artist,gallery,color etc.">
-                        <button class="search-icon" type="submit"><img src="img/search.png"
-                                style="height:30px;width:28px"></button>
-                    </form>
-                </div>
+                
             </div>
            <div> <asp:Button ID="Signup_btn" runat="server" Text="SIGN UP" CssClass="signup-button"  OnClick="Signup_btn_Click" /></div>
-          <div> <asp:Button ID="Login_btn" runat="server" Text="LOG IN" CssClass="login-button" OnClick="Login_btn_Click" /></div>
+          <div> <asp:Button ID="Login_btn" runat="server" Text="LOG IN" CssClass="login-button" OnClick="Login_btn_Click" OnCommand="Button_Command" CommandName="Toggle_Log" /></div>
 
             <div></div>
             <div></div>
@@ -49,29 +44,37 @@
 
     </header>
 
-    <section>
-        <div style="display:grid;width:100%; grid-template-columns: 1fr 1fr 1fr 1fr 1fr  ">
-        <asp:Menu ID="MainMenu" runat="server"  CssClass="dropdown-menu ">
+   <section>
+    <div class="menu-container">
+        <asp:Menu ID="MainMenu" runat="server" CssClass="dropdown-menu" OnMenuItemClick="menu_MenuItemClick">
+    <StaticSelectedStyle CssClass="selected" />
+    <StaticMenuItemStyle CssClass="menu-item" />
+    <StaticHoverStyle CssClass="hover" />
+    <DynamicHoverStyle CssClass="hover" />
+    <DynamicMenuStyle CssClass="submenu" />
+
     <Items>
-        <asp:MenuItem Text="Home" NavigateUrl="~/Home.aspx" Selected="true" />
-        <asp:MenuItem Text="Artworks" NavigateUrl="~/Category.aspx" />
-        <asp:MenuItem Text="My Cart" NavigateUrl="~/Cart.aspx" />
-        <asp:MenuItem Text="Favourites" NavigateUrl="~/Favourites.aspx" />
-        <asp:MenuItem Text="Settings">
-            <asp:MenuItem Text="My Profile" />
-            <asp:MenuItem Text="My Orders" />
+        <asp:MenuItem Text='<i class="fas fa-home"></i> Home' NavigateUrl="~/Home.aspx" Selected="true" />
+        <asp:MenuItem Text='<i class="fas fa-palette"></i> Artworks' NavigateUrl="~/Category.aspx" />
+        <asp:MenuItem Text='<i class="fas fa-shopping-cart"></i> My Cart' NavigateUrl="~/Cart.aspx" />
+        <asp:MenuItem Text='<i class="fas fa-heart"></i> Favorites' NavigateUrl="~/Wishlist.aspx" />
+        <asp:MenuItem Text='<i class="fas fa-cog"></i> Settings'>
+            <asp:MenuItem Text='<i class="fas fa-user"></i> My Profile'  Value="MyProfile"/>
+            <asp:MenuItem Text='<i class="fas fa-list-alt"></i> My Orders' Value="MyOrders" />
         </asp:MenuItem>
     </Items>
 </asp:Menu>
-            </div>
-    </section>
+    </div>
+
+
+</section>
 
     <section>
         <p style="margin-top:80px;margin-left:30px;text-align: center;font-size: 60px;">
             <b>Categories</b>
         </p>
         <div style="margin-top:50px;display:grid;grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr">
-            <div><img class="category" src="img/Piece for Peace Sculpture.jfif">
+            <div><img class="category" src="img/peace.jfif">
                 <p class="category-name">Sculpture</p>
             </div>
             <div><img class="category" src="img/clearwater.jpg">
@@ -80,7 +83,7 @@
             <div><img class="category" src="img/garden3.jfif">
                 <p class="category-name">Prints</p>
             </div>
-            <div><img class="category" src="img/Ronnie Hughes - Piedmont Craftsmen.jfif">
+            <div><img class="category" src="img/glassflower.jfif">
                 <p class="category-name">Glass Art</p>
             </div>
             <div><img class="category" src="img/illustration.png">
@@ -92,7 +95,7 @@
             <div><img class="category" src="img/Embroidery.jfif">
                 <p class="category-name">Fiber Arts</p>
             </div>
-            <div><img class="category" src="img/Dollhouse Miniature.jfif">
+            <div><img class="category" src="img/min4.png">
                 <p class="category-name">Miniature</p>
             </div>
         </div>
@@ -105,7 +108,7 @@
         <div style="margin-top:30px;display:grid;
     grid-template-columns: 1fr 1fr 1fr 1fr">
             <div style="margin-left: 40px;">
-                <div><img src="img/fair1.webp" style="height:200px;width:250px"></div>
+                <div><a href="https://metropolisjapan.com/event/art-fair-tokyo-2023/"><img src="img/Fair2.jpg" style="height:200px;width:250px" /></a></div>
                 <div>
                     <h5>Featured Fair</h5>
                 </div>
@@ -114,7 +117,7 @@
                 </div>
             </div>
             <div style="margin-left: 40px;">
-                <div><img src="img/fair2.webp" style="height:200px;width:250px"></div>
+                <div><a href="https://www.somersethouse.org.uk/whats-on/collect-2023"><img src="img/Fair1.jpg" style="height:200px;width:250px" /></a></div>
                 <div>
                     <h5>Featured Fair</h5>
                 </div>
@@ -126,369 +129,74 @@
 
 
     </section>
-    <section>
-        <p style="margin-top:80px;margin-left:30px;text-align: left;font-size: 40px;">
-            <b>Curator's Picks:Emerging</b>
-        </p>
-        <div style="margin-top:8px;display:grid;grid-template-columns: 1fr 1fr">
-            <div style="margin-left: 30px;font-size: 20px;color:cadetblue">The best works by rising talents on
-                ArtVenture,
-                all available now.</div>
-            <div style="text-align: end;padding:10px">
-                <a href="#" style="text-decoration-color: cadetblue;color:cadetblue">
-                    view all works</a>
-            </div>
-        </div>
-        <div style="margin-left: 40px;">
-            <div><img src="img/fair1.webp" style="height:200px;width:250px"></div>
-            <div>
-                <h5>Featured Fair</h5>
-            </div>
-            <div>
-                <h2>Art Fair Tokyo 2023</h2>
-            </div>
-        </div>
-        <div style="margin-left: 40px;">
-            <div><img src="img/fair2.webp" style="height:200px;width:250px"></div>
-            <div>
-                <h5>Featured Fair</h5>
-            </div>
-            <div>
-                <h2>Collect 2023</h2>
-            </div>
-        </div>
 
-
-    </section>
-
-    <hr style="margin-top:80px">
-    <section>
-        <div style="margin-top:80px;display:grid;grid-template-columns: 1fr 1fr">
-            <div style="margin-left: 30px;font-size: 40px;">
-                Trending Artists on ArtVenture</div>
-            <div style="text-align: end;padding:10px">
-                <a href="#" style="text-decoration-color: cadetblue;color:cadetblue">
-                    view all artists</a>
-            </div>
-        </div>
-        <div style="margin-top:30px;margin-bottom:30px;display: grid;grid-template-columns: 1fr 1fr 1fr">
-            <div>
-                <div><img src="img/artist1.webp" style="margin-left: 30px;height:300px;width:350px"></div>
-                <div>
-                    <div>
-                        <p style="margin-left:30px;font-size: 24px;display: inline-block;">Luke Edward Hall</p>
-                    </div>
-                    <p style="display: inline-block;margin-left:30px;color:gray;font-family:'Times New Roman', Times, serif;
-                    font-size: 14px;">
-                        American,b.1991</p>
-                </div>
-                <div> <button class="follow-btn">Follow</button></div>
-            </div>
-            <div>
-                <div><img src="img/artist2.webp" style="margin-left: 30px;height:300px;width:350px"></div>
-                <div>
-                    <div>
-                        <p style="margin-left:30px;font-size: 24px;display: inline-block;">Luke Edward Hall</p>
-                    </div>
-                    <p style="display: inline-block;margin-left:30px;color:gray;font-family:'Times New Roman', Times, serif;
-                    font-size: 14px;">
-                        American,b.1991</p>
-                </div>
-                <div> <button class="follow-btn">Follow</button></div>
-            </div>
-            <div>
-                <div><img src="img/artist3.webp" style="margin-left: 30px;height:300px;width:350px"></div>
-                <div>
-                    <div>
-                        <p style="margin-left:30px;font-size: 24px;display: inline-block;">Luke Edward Hall</p>
-                    </div>
-                    <p style="display: inline-block;margin-left:30px;color:gray;font-family:'Times New Roman', Times, serif;
-                    font-size: 14px;">
-                        American,b.1991</p>
-                </div>
-                <div> <button class="follow-btn">Follow</button></div>
-            </div>
-            <div>
-                <div><img src="img/artist4.webp" style="margin-left: 30px;height:300px;width:350px"></div>
-                <div>
-                    <div>
-                        <p style="margin-left:30px;font-size: 24px;display: inline-block;">Luke Edward Hall</p>
-                    </div>
-                    <p style="display: inline-block;margin-left:30px;color:gray;font-family:'Times New Roman', Times, serif;
-                    font-size: 14px;">
-                        American,b.1991</p>
-                </div>
-                <div> <button class="follow-btn">Follow</button></div>
-            </div>
-            <div>
-                <div><img src="img/artist5.webp" style="margin-left: 30px;height:300px;width:350px"></div>
-                <div>
-                    <div>
-                        <p style="margin-left:30px;font-size: 24px;display: inline-block;">Luke Edward Hall</p>
-                    </div>
-                    <p style="display: inline-block;margin-left:30px;color:gray;font-family:'Times New Roman', Times, serif;
-                    font-size: 14px;">
-                        American,b.1991</p>
-                </div>
-                <div> <button class="follow-btn">Follow</button></div>
-            </div>
-            <div>
-                <div><img src="img/artist6.webp" style="margin-left: 30px;height:300px;width:350px"></div>
-                <div>
-                    <div>
-                        <p style="margin-left:30px;font-size: 24px;display: inline-block;">Luke Edward Hall</p>
-                    </div>
-                    <p style="display: inline-block;margin-left:30px;color:gray;font-family:'Times New Roman', Times, serif;
-                    font-size: 14px;">
-                        American,b.1991</p>
-                </div>
-                <div> <button class="follow-btn">Follow</button></div>
-            </div>
-            <div>
-                <div><img src="img/artist7.webp" style="margin-left: 30px;height:300px;width:350px"></div>
-                <div>
-                    <div>
-                        <p style="margin-left:30px;font-size: 24px;display: inline-block;">Luke Edward Hall</p>
-                    </div>
-                    <p style="display: inline-block;margin-left:30px;color:gray;font-family:'Times New Roman', Times, serif;
-                    font-size: 14px;">
-                        American,b.1991</p>
-                </div>
-                <div> <button class="follow-btn">Follow</button></div>
-            </div>
-             </div>
-
-
-    </section>
-
-    <hr style="margin-top:80px">
-    <section>
-        <div style="margin-top:80px;display:grid;grid-template-columns: 1fr 1fr">
-            <div style="margin-left: 30px;font-size: 40px;">
-                Auction Lots</div>
-            <div style="text-align: end;padding:10px">
-                <a href="#" style="text-decoration-color: cadetblue;color:cadetblue">
-                    view all auctions</a>
-            </div>
-        </div>
-        <div style="margin-top:30px;margin-bottom:30px;display: grid;grid-template-columns: 1fr 1fr 1fr 1fr">
-            <div>
-                <div><img src="img/auction1.webp" style="margin-left: 30px;height:175px;width:210px"></div>
-                <div>
-                    <div>
-                        <p style="margin-left:30px;font-size: 24px;display: inline-block;">Jonas Wood</p>
-                    </div>
-                    <p style="display: inline-block;margin-left:30px;color:gray;font-family:'Times New Roman', Times, serif;
-                    font-size: 14px;">
-                        Landscape plant pot</p>
-                </div>
-                <div style="margin-left: 30px;">$12,000</div>
-                <div> <button class="follow-btn">Get Details</button></div>
-            </div>
-            <div>
-                <div><img src="img/auction2.webp" style="margin-left: 30px;height:175px;width:210px"></div>
-                <div>
-                    <div>
-                        <p style="margin-left:30px;font-size: 24px;display: inline-block;">Banksy</p>
-                    </div>
-                    <p style="display: inline-block;margin-left:30px;color:gray;font-family:'Times New Roman', Times, serif;
-                    font-size: 14px;">
-                        Bomb Hunger,2003</p>
-                </div>
-                <div style="margin-left: 30px;">$18,000</div>
-                <div> <button class="follow-btn">Get Details</button></div>
-            </div>
-            <div>
-                <div><img src="img/auction3.webp" style="margin-left: 30px;height:175px;width:210px"></div>
-                <div>
-                    <div>
-                        <p style="margin-left:30px;font-size: 24px;display: inline-block;">Arnaldo Pomodoro</p>
-                    </div>
-                    <p style="display: inline-block;margin-left:30px;color:gray;font-family:'Times New Roman', Times, serif;
-                    font-size: 14px;">
-                        Le Coffret,1981</p>
-                </div>
-                <div style="margin-left: 30px;">$1,300</div>
-                <div> <button class="follow-btn">Get Details</button></div>
-            </div>
-            <div>
-                <div><img src="img/auction4.webp" style="margin-left: 30px;height:175px;width:210px"></div>
-                <div>
-                    <div>
-                        <p style="margin-left:30px;font-size: 24px;display: inline-block;">Yoshimoto Nara</p>
-                    </div>
-                    <p style="display: inline-block;margin-left:30px;color:gray;font-family:'Times New Roman', Times, serif;
-                    font-size: 14px;">
-                        Cosmic Girl</p>
-                </div>
-                <div style="margin-left: 30px;">$6,500</div>
-                <div> <button class="follow-btn">Get Details</button></div>
-            </div>
-            <div>
-                <div><img src="img/auction5.webp" style="margin-left: 30px;height:175px;width:210px"></div>
-                <div>
-                    <div>
-                        <p style="margin-left:30px;font-size: 24px;display: inline-block;">Luke Edward Hall</p>
-                    </div>
-                    <p style="display: inline-block;margin-left:30px;color:gray;font-family:'Times New Roman', Times, serif;
-                    font-size: 14px;">
-                        American,b.1991</p>
-                </div>
-                <div style="margin-left: 30px;">$12,000</div>
-                <div> <button class="follow-btn">Get Details</button></div>
-            </div>
-            <div>
-                <div><img src="img/auction6.webp" style="margin-left: 30px;height:175px;width:210px"></div>
-                <div>
-                    <div>
-                        <p style="margin-left:30px;font-size: 24px;display: inline-block;">Luke Edward Hall</p>
-                    </div>
-                    <p style="display: inline-block;margin-left:30px;color:gray;font-family:'Times New Roman', Times, serif;
-                    font-size: 14px;">
-                        American,b.1991</p>
-                </div>
-                <div style="margin-left: 30px;">$12,000</div>
-                <div> <button class="follow-btn">Get Details</button></div>
-            </div>
-            <div>
-                <div><img src="img/auction7.webp" style="margin-left: 30px;height:175px;width:210px"></div>
-                <div>
-                    <div>
-                        <p style="margin-left:30px;font-size: 24px;display: inline-block;">Luke Edward Hall</p>
-                    </div>
-                    <p style="display: inline-block;margin-left:30px;color:gray;font-family:'Times New Roman', Times, serif;
-                    font-size: 14px;">
-                        American,b.1991</p>
-                </div>
-                <div style="margin-left: 30px;">$12,000</div>
-                <div> <button class="follow-btn">Get Details</button></div>
-            </div>
-            <div>
-                <div><img src="img/auction8.webp" style="margin-left: 30px;height:175px;width:210px"></div>
-                <div>
-                    <div>
-                        <p style="margin-left:30px;font-size: 24px;display: inline-block;">Luke Edward Hall</p>
-                    </div>
-                    <p style="display: inline-block;margin-left:30px;color:gray;font-family:'Times New Roman', Times, serif;
-                    font-size: 14px;">
-                        American,b.1991</p>
-                </div>
-                <div style="margin-left: 30px;">$12,000</div>
-                <div> <button class="follow-btn">Get Details</button></div>
-            </div>
-            <div>
-                <div><img src="img/auction9.webp" style="margin-left: 30px;height:175px;width:210px"></div>
-                <div>
-                    <div>
-                        <p style="margin-left:30px;font-size: 24px;display: inline-block;">Luke Edward Hall</p>
-                    </div>
-                    <p style="display: inline-block;margin-left:30px;color:gray;font-family:'Times New Roman', Times, serif;
-                    font-size: 14px;">
-                        American,b.1991</p>
-                </div>
-                <div style="margin-left: 30px;">$12,000</div>
-                <div> <button class="follow-btn">Get Details</button></div>
-            </div>
-             </div>
-
-
-    </section>
+   
 
 
     <hr style="margin-top:80px">
     <section>
-        <div style="margin-top:80px;display:grid;grid-template-columns: 1fr 1fr">
-            <div style="margin-left: 30px;font-size: 40px;">
+            <div style="margin-left: 30px;margin-top:30px;font-size: 40px;">
                 Featured Galleries</div>
-            <div style="text-align: end;padding:10px">
-                <a href="#" style="text-decoration-color: cadetblue;color:cadetblue">
-                    view all galleries</a>
-            </div>
-        </div>
         <div style="margin-top:30px;margin-bottom:30px;display: grid;grid-template-columns: 1fr 1fr 1fr">
             <div>
-                <div><img src="img/gallery1.webp" style="margin-left: 30px;height:300px;width:350px"></div>
+                <div><img src="img/Louvre.jpeg" style="margin-left: 30px;height:300px;width:350px"></div>
                 <div>
                     <div>
-                        <p style="margin-left:30px;font-size: 24px;display: inline-block;">S&P Gallery</p>
+                        <p style="margin-left:30px;font-size: 24px;display: inline-block;">Louvre Museum</p>
+                    </div>
+                    <p style="display: inline-block;margin-left:30px;color:gray;font-family:'Times New Roman', Times, serif;
+                    font-size: 14px;">
+                        Paris, France</p>
+                </div>
+                 <div><asp:Button  style="margin-left:30px" runat="server" Text="Follow" CssClass="follow-btn" PostBackUrl="https://www.louvre.fr/en" /></div>
+            </div> 
+            <div>
+                <div><img src="img/Moma.jpeg" style="margin-left: 30px;height:300px;width:350px"></div>
+                <div>
+                    <div>
+                        <p style="margin-left:30px;font-size: 24px;display: inline-block;">Museum of Modern Art (MoMA)</p>
+                    </div>
+                    <p style="display: inline-block;margin-left:30px;color:gray;font-family:'Times New Roman', Times, serif;
+                    font-size: 14px;">
+                        New York, USA</p>
+                </div>
+                <div><asp:Button  style="margin-left:30px" runat="server" Text="Follow" CssClass="follow-btn" PostBackUrl="https://www.moma.org" /></div>
+            </div>
+            <div>
+                <div><img src="img/MuséeMarmottanMonet.jpg" style="margin-left: 30px;height:300px;width:350px"></div>
+                <div>
+                    <div>
+                        <p style="margin-left:30px;font-size: 24px;display: inline-block;">Musée Marmottan Monet</p>
                     </div>
                     <p style="display: inline-block;margin-left:30px;color:gray;font-family:'Times New Roman', Times, serif;
                     font-size: 14px;">
                         London</p>
                 </div>
-                <div> <button class="follow-btn">Follow</button></div>
+                <div><asp:Button  style="margin-left:30px" runat="server" Text="Follow" CssClass="follow-btn" PostBackUrl="https://www.marmottan.fr/en/" /></div>
             </div>
             <div>
-                <div><img src="img/gallery2.webp" style="margin-left: 30px;height:300px;width:350px"></div>
+                <div><img src="img/tate.jpeg" style="margin-left: 30px;height:300px;width:350px"></div>
                 <div>
                     <div>
-                        <p style="margin-left:30px;font-size: 24px;display: inline-block;">Verdyun</p>
+                        <p style="margin-left:30px;font-size: 24px;display: inline-block;">Tate Modern</p>
                     </div>
                     <p style="display: inline-block;margin-left:30px;color:gray;font-family:'Times New Roman', Times, serif;
                     font-size: 14px;">
-                        Moregem</p>
+                       London, UK</p>
                 </div>
-                <div> <button class="follow-btn">Follow</button></div>
+                <div><asp:Button  style="margin-left:30px" runat="server" Text="Follow" CssClass="follow-btn" PostBackUrl=" https://www.tate.org.uk/visit/tate-modern" /></div>
             </div>
             <div>
-                <div><img src="img/gallery3.webp" style="margin-left: 30px;height:300px;width:350px"></div>
+                <div><img src="img/MuseumofFineArtsBoston.jpg" style="margin-left: 30px;height:300px;width:350px"></div>
                 <div>
                     <div>
-                        <p style="margin-left:30px;font-size: 24px;display: inline-block;">Litvak Contemporary</p>
+                        <p style="margin-left:30px;font-size: 24px;display: inline-block;">Uffizi Gallery</p>
                     </div>
                     <p style="display: inline-block;margin-left:30px;color:gray;font-family:'Times New Roman', Times, serif;
                     font-size: 14px;">
-                        Tel-Aviv</p>
+                        Florence, Italy</p>
                 </div>
-                <div> <button class="follow-btn">Follow</button></div>
-            </div>
-            <div>
-                <div><img src="img/gallery4.webp" style="margin-left: 30px;height:300px;width:350px"></div>
-                <div>
-                    <div>
-                        <p style="margin-left:30px;font-size: 24px;display: inline-block;">Modern Rocks Gallery</p>
-                    </div>
-                    <p style="display: inline-block;margin-left:30px;color:gray;font-family:'Times New Roman', Times, serif;
-                    font-size: 14px;">
-                        Austin</p>
-                </div>
-                <div> <button class="follow-btn">Follow</button></div>
-            </div>
-            <div>
-                <div><img src="img/gallery5.webp" style="margin-left: 30px;height:300px;width:350px"></div>
-                <div>
-                    <div>
-                        <p style="margin-left:30px;font-size: 24px;display: inline-block;">Michael Hoppen Gallery</p>
-                    </div>
-                    <p style="display: inline-block;margin-left:30px;color:gray;font-family:'Times New Roman', Times, serif;
-                    font-size: 14px;">
-                        London</p>
-                </div>
-                <div> <button class="follow-btn">Follow</button></div>
-            </div>
-            <div>
-                <div><img src="img/gallery6.webp" style="margin-left: 30px;height:300px;width:350px"></div>
-                <div>
-                    <div>
-                        <p style="margin-left:30px;font-size: 24px;display: inline-block;">Liss Llewellyn</p>
-                    </div>
-                    <p style="display: inline-block;margin-left:30px;color:gray;font-family:'Times New Roman', Times, serif;
-                    font-size: 14px;">
-                        London</p>
-                </div>
-                <div> <button class="follow-btn">Follow</button></div>
-            </div>
-            <div>
-                <div><img src="img/gallery7.webp" style="margin-left: 30px;height:300px;width:350px"></div>
-                <div>
-                    <div>
-                        <p style="margin-left:30px;font-size: 24px;display: inline-block;">Galerie Fischer</p>
-                    </div>
-                    <p style="display: inline-block;margin-left:30px;color:gray;font-family:'Times New Roman', Times, serif;
-                    font-size: 14px;">
-                        Lucerne</p>
-                </div>
-                <div> <button class="follow-btn">Follow</button></div>
+                 <div><asp:Button  style="margin-left:30px" runat="server" Text="Follow" CssClass="follow-btn" PostBackUrl=" https://www.uffizi.it/en" /></div>
             </div>
              </div>
 
@@ -510,13 +218,31 @@
     <hr style="margin-top:80px">
     <section>
         <div style="padding:30px;display:grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;background: #222;color: white;">
-            <div>About Us</div>
-            <div>Support</div>
-            <div>Discover</div>
+        grid-template-columns: 1fr 1fr 1fr;background: #222;color: white;">
             <div>
-                <div>Languages</div>
-                <div>Countries</div>
+                <h3>About Us</h3>
+                <div><br></div>
+                <div>
+                    ArtVenture is an online marketplace<br>come together to make, sell, buy, and collect unique items
+                </div>
+                <div>Follow us on Instagram and Facebook</div>
+                <div><br></div>
+                 <div class="newicons">
+                    <a href="https://www.instagram.com/_art_venture/?igshid=MzRlODBiNWFlZA%3D%3D"><i class="bi bi-instagram"></i></a>
+                    <a href="https://www.facebook.com/artventure992/"><i class="bi bi-facebook blue-color"></i></a>
+                </div>
+            </div>
+            <div>
+                <h3>Contact Us</h3>
+                <div><br></div>
+                <div>Email: artventurebd@gmail.com</div>
+                <div>Phone No: 01********0</div>
+
+            </div>
+            <div>
+                <h3>Discover</h3>
+                <div><br></div>
+                <div><a href="#">What's new?</a></div>
             </div>
         </div>
        

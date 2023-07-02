@@ -14,16 +14,19 @@
                 <asp:TextBox ID="EmailTxt" runat="server" CssClass="input"></asp:TextBox>
                 <i class='bx bx-envelope'></i>
             </div>
+            <br />
             <div class="input-field">
                 <label for="PasswordTxt">New Password</label>
                 <asp:TextBox ID="PasswordTxt" runat="server" TextMode="Password" CssClass="input"></asp:TextBox>
                 <i class='bx bx-lock-alt'></i>
             </div>
+            <br />
             <div class="input-field">
                 <label for="RetypePasswordTxt">Retype New Password</label>
                 <asp:TextBox ID="RetypePasswordTxt" runat="server" TextMode="Password" CssClass="input"></asp:TextBox>
                 <i class='bx bx-lock-alt'></i>
             </div>
+            <br />
             <div class="input-field">
                 <asp:Button ID="ResetPasswordBtn" runat="server" Text="Reset Password" CssClass="submit" OnClick="ResetPasswordBtn_Click" />
             </div>

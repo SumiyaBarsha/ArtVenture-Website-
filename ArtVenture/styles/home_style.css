@@ -28,6 +28,7 @@ h4{
    height:7vh;
    vertical-align: bottom;
    border-radius: 3.5px;
+   margin-right:10px;
 
    
 }
@@ -119,78 +120,62 @@ form button{
     color: white;
 
 }
+.menu-container {
+    display: flex;
+    justify-content: center;
+}
 
-.dropdown-menu{
-    background-color: black;
-    text-align: center;
-    border: solid;
-    border-color: whitesmoke;
-    border-width: 1px;
-   
+.dropdown-menu {
+   background-color: #f8f9fa;
+        padding: 10px;
+        border-radius: 4px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+        display: flex; /* Display items horizontally */
+        justify-content: center;
 }
-.dropdown-menu ul{
-    display:inline-flex;
-    list-style: none;
-    color:white;
-    
-}
-.dropdown-menu ul li{
-        width: 180px;
-        padding:15px;
-}
-.dropdown-menu ul li a{
+
+    .dropdown-menu ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex; /* Display submenu items horizontally */
+        justify-content: center;
+    }
+
+    .dropdown-menu li {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin: 0 15px;
+    }
+
+.dropdown-menu a {
+    display: block;
+    padding: 10px;
+    color: #333;
     text-decoration: none;
-    color:white;
+    transition: background-color 0.3s;
 }
-.active,.dropdown-menu ul li:hover{
-    background-color: transparent;
-    border-color:white;
-    border-style: solid;
-    border-width: 3px;
-    font-size: larger;
+
+    .dropdown-menu a:hover {
+        background-color: #e9ecef;
+    }
+
+.dropdown-menu .fa {
+    margin-right: 5px;
 }
-.settings-menu{
+
+.dropdown-menu .submenu {
     display: none;
-}
-.dropdown-menu ul li:hover .settings-menu{
-    display: block;
     position: absolute;
-    background-color: black;
-    color: white;
-    margin-top: 15px;
-    margin-left: -15px;
+    left: 0; /* Position submenu to the left */
+    top: 100%; /* Position submenu below its parent item */
 }
-.dropdown-menu ul li:hover .settings-menu ul{
-  display: block;
-  margin: 10px;
-}
-.dropdown-menu ul li:hover .settings-menu ul li{
-   width:150px;
-   padding: 10px;
-   text-align: center;
-   background: transparent;
-}
-.artwork-menu{
-    display: none;
-}
-.dropdown-menu ul li:hover .artwork-menu{
-    display: block;
-    position: absolute;
-    background-color: black;
-    color: white;
-    margin-top: 15px;
-    margin-left: -15px;
-}
-.dropdown-menu ul li:hover .artwork-menu ul{
-  display: block;
-  margin: 10px;
-}
-.dropdown-menu ul li:hover .artwork-menu ul li{
-   width:150px;
-   padding: 10px;
-   text-align: center;
-   background: transparent;
-}
+
+    .dropdown-menu .submenu li {
+        margin-left: 0 !important;
+    }
 .follow-btn{
     background-color: white;
     border-color: black;
@@ -203,7 +188,6 @@ form button{
     padding-right: 20px;
     border-radius: 15px;
     cursor: pointer;
-    margin-left: 30px;
     margin-top: 5px;
     margin-bottom: 15px;
     height:30px;
@@ -231,10 +215,7 @@ form button{
   
     text-align: center;
 }
-.icons {
-    color: white;
-    align-self: center;
-}
+
 .bx{
     font-size: 30px;
 }
@@ -246,13 +227,7 @@ form button{
     width:40px;
     border-radius: 50%;
 }
-.paint:hover{
-    cursor: pointer;
-}
-.heart2
-{
-    color:#fff;
-}
+
 .desc{
     padding:5px;
 }
@@ -278,3 +253,79 @@ form button{
     background-color: green;
 }
 
+.container {
+    display: flex;
+    align-items: center;
+}
+
+.icons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+}
+
+    .icons a {
+        color: white;
+        text-decoration: none;
+    }
+
+.heart2 {
+    display: inline-block;
+    position: relative;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+}
+
+    .heart2:before {
+        content: "\f3dd";
+        font-family: "Boxicons";
+        font-size: 30px;
+        color: white;
+    }
+
+.container button.follow-btn {
+    background-color: #06c;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.paint {
+    position: relative;
+}
+
+    .paint .heart {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        color: #ff2e63;
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    .paint .cart {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        color: #06c;
+        font-size: 24px;
+        cursor: pointer;
+    }
+.blue-color {
+    color: blue;
+}
+.newicons {
+    color: white;
+}
+
+    .newicons a {
+        color: white;
+        text-decoration: none;
+    }

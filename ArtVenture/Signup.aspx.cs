@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Security.Cryptography;
+using System.Text.RegularExpressions;
 
 namespace ArtVenture
 {
@@ -17,7 +12,7 @@ namespace ArtVenture
 
         protected void Page_Load(object sender, EventArgs e)
         {
-       
+
 
         }
 
@@ -31,7 +26,7 @@ namespace ArtVenture
                     con.Open();
 
                     // Generate a unique user ID
-                   string userId = Guid.NewGuid().ToString();
+                    string userId = Guid.NewGuid().ToString();
 
                     SqlCommand cmd = new SqlCommand("INSERT INTO signup ([userId], [username], [email], [password], [category]) VALUES (@userid, @username, @email, @password, @category)", con);
 
@@ -47,7 +42,7 @@ namespace ArtVenture
                     cmd.Parameters.AddWithValue("@category", Usercategory.SelectedValue);
 
                     cmd.ExecuteNonQuery();
-                 
+
 
                     // Close the connection
                     con.Close();
@@ -162,6 +157,10 @@ namespace ArtVenture
         {
             // Display error message in an alert
             Response.Write("<script>alert('" + message + "');</script>");
+        }
+        protected void Home_btn_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Home.aspx");
         }
     }
 }

@@ -34,21 +34,13 @@
             </div>
 
             <div class="two-col">
-                <div class="one">
-                    <asp:CheckBox ID="RememberMeCheckBox" runat="server" Text="Remember Me" />
-                </div>
+                <div  class="one"></div>
                 <div class="two">
                     <asp:HyperLink ID="ForgotPasswordLink" runat="server" NavigateUrl="ForgotPassword.aspx" Text="Forgot password?" />
                 </div>
             </div>
-            <div class="two-col">
-                <div class="one">
-                    <asp:Button ID ="Google_btn" runat="server" Text="Google" CssClass="g-btn"  />
-                </div>
-                <div>
-                   <asp:Button ID ="Fb_btn" runat="server" Text="Facebook" CssClass="f-btn" />
-                </div>
-            </div>
+          
+            <div style="text-align:center;margin-top:15px;text-decoration-color:white"><a href="Home.aspx">Back To Home</a></div>
             
         </div>
     </div>
