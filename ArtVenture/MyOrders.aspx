@@ -31,7 +31,6 @@
             <asp:BoundField DataField="PaymentTime" HeaderText="Payment Time" />
             <asp:BoundField DataField="PaymentMethod" HeaderText="Payment Method" />
             <asp:BoundField DataField="TotalPrice" HeaderText="Total Price" />
-            <asp:BoundField DataField="ImageID" HeaderText="Image ID" />
         </Columns>
     </asp:GridView>
 </div>

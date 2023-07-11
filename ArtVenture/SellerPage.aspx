@@ -24,9 +24,6 @@
   <h1><asp:Literal ID="welcomeLiteral" runat="server"></asp:Literal></h1>
   <p>Manage your products and sales here.</p>
 
-    <div class="order-count">
-    <h3>Total Orders: <asp:Literal ID="orderCountLiteral" runat="server"></asp:Literal></h3>
-  </div>
  <div class="upload-form">
     <h2>Upload Image</h2>
     <div class="form-item-container">

@@ -17,8 +17,8 @@ namespace ArtVenture
             }
             if (Session["LoggedIn"] != null && (bool)Session["LoggedIn"])
             {
-                Login_btn.Text = "Logout"; // Change the button text to "Logout"
-                Signup_btn.Visible = false; // Hide the Signup button
+                Login_btn.Text = "Logout";
+                Signup_btn.Visible = false;
             }
         }
         protected void Signup_btn_Click(object sender, EventArgs e)
@@ -29,12 +29,10 @@ namespace ArtVenture
         {
             if (Session["username"] == null)
             {
-                // User is not logged in, redirect to login page
                 Response.Redirect("~/Login.aspx");
             }
             else
             {
-                // User is logged in, perform logout
                 Session.Clear();
                 UpdateLoginButtonText();
                 Response.Redirect("~/Home.aspx");
@@ -44,11 +42,13 @@ namespace ArtVenture
         {
             if (Session["username"] == null)
             {
-                // LoginBtn.Text = "Login";
+                 Login_btn.Text = "Login";
+
             }
             else
             {
-                //  Logout_btn.Text = "Logout";
+                Login_btn.Text = "Logout";
+                Signup_btn.Visible = false;
             }
         }
 
@@ -59,8 +59,6 @@ namespace ArtVenture
             if (e.CommandName == "Toggle_Log")
             {
                 button.Text = "Logout";
-
-                // Add your logic for adding the item to the cart
             }
 
         }
@@ -69,14 +67,10 @@ namespace ArtVenture
         {
             if (e.Item.Value == "MyOrders")
             {
-                // Handle the click event of the "My Orders" menu item
-                // Redirect to the My Orders page or perform any other desired action
                 Response.Redirect("~/MyOrders.aspx");
             }
             if (e.Item.Value == "MyProfile")
             {
-                // Handle the click event of the "My Orders" menu item
-                // Redirect to the My Orders page or perform any other desired action
                 Response.Redirect("~/Profile.aspx");
             }
         }

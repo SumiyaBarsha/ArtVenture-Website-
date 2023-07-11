@@ -18,20 +18,18 @@ namespace ArtVenture
         private void BindOrdersGrid()
         {
             string connectionString = ConfigurationManager.ConnectionStrings["dbconnection"].ConnectionString;
+            string userId = Session["userId"].ToString();
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 string query = @"SELECT os.order_id AS OrderID, os.pay_time AS PaymentTime, os.pay_method AS PaymentMethod,
-                                p.tot_price AS TotalPrice, c.Img_id AS ImageID
-                                FROM order_success AS os
-                                JOIN payment AS p ON os.order_id = p.order_id
-                                JOIN cart AS c ON os.userId = c.userId
-                                WHERE os.userId = @userId";
+                                p.tot_price AS TotalPrice
+                        FROM order_success AS os
+                        INNER JOIN payment AS p ON os.order_id = p.order_id
+                        WHERE os.userId = @userId";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    // Assuming you have a way to retrieve the userId for the logged-in user
-                    string userId = Session["userId"].ToString();
                     command.Parameters.AddWithValue("@userId", userId);
 
                     SqlDataAdapter adapter = new SqlDataAdapter(command);
@@ -43,5 +41,6 @@ namespace ArtVenture
                 }
             }
         }
+
     }
 }

@@ -31,7 +31,7 @@ namespace ArtVenture
 
                 if (count > 0)
                 {
-                    // User exists, check password and category
+                 
                     cmd = new SqlCommand("SELECT [password],[userId], [category] FROM signup WHERE [username] = @username", con);
                     cmd.Parameters.AddWithValue("@username", username);
 
@@ -43,10 +43,10 @@ namespace ArtVenture
                         string category = reader["category"].ToString();
                         string userId = reader["userId"].ToString();
 
-                        // Verify the password
+                       
                         if (VerifyPassword(password, storedPasswordHash))
                         {
-                            // Password matches, login successful
+                            
                             Session["username"] = username;
                             Session["userId"] = userId;
                             Session["LoggedIn"] = true;
@@ -62,19 +62,19 @@ namespace ArtVenture
                         }
                         else
                         {
-                            // Password does not match
+                           
                             Response.Write("<script>alert('Invalid password.');</script>");
                         }
                     }
                     else
                     {
-                        // User does not exist
+                        
                         Response.Write("<script>alert('Invalid username.');</script>");
                     }
                 }
 
 
-                // Set the session variable to indicate that the user is logged in
+                
                 Session["LoggedIn"] = true;
 
                 con.Close();

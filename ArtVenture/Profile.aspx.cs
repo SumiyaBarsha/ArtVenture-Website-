@@ -23,7 +23,7 @@ namespace ArtVenture
 
                 if (!string.IsNullOrEmpty(userId))
                 {
-                    // Fetch user details from the database based on the user ID
+                    
                     FetchUserDetails(userId);
 
                     DisplayProfilePicture(userId);
@@ -162,7 +162,7 @@ namespace ArtVenture
             }
             catch (Exception ex)
             {
-                // Handle the exception or display an error message
+                
                 messageLabel.Text = "Error updating image: " + ex.Message;
             }
         }
@@ -284,7 +284,7 @@ namespace ArtVenture
 
         private void FetchUserDetails(string userId)
     {
-        // Fetch user details from the database based on the user ID
+       
         string connectionString = ConfigurationManager.ConnectionStrings["dbconnection"].ConnectionString;
 
         using (SqlConnection con = new SqlConnection(connectionString))

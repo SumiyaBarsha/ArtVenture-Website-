@@ -56,6 +56,7 @@
     <div class="container">
     <h1><b>Shopping Cart</b></h1>
         <br />
+         <div><asp:Label ID="orderLabel" runat="server" CssClass="order-message"></asp:Label></div>
         <br />
    <div class="cart-items">
   <asp:Repeater ID="cartItemsRepeater" runat="server" OnItemDataBound="cartItemsRepeater_ItemDataBound">

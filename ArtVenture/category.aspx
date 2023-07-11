@@ -274,7 +274,7 @@
                 <div><br></div>
                  <div class="newicons">
                     <a href="https://www.instagram.com/_art_venture/?igshid=MzRlODBiNWFlZA%3D%3D"><i class="bi bi-instagram"></i></a>
-                    <a href="https://www.facebook.com/artventure992/"><i class="bi bi-facebook blue-color"></i></a>
+                    <a href="https://www.facebook.com/artventure992/"><i class="bi bi-facebook"></i></a>
                 </div>
             </div>
             <div>

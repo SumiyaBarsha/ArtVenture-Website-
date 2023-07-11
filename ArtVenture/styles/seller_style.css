@@ -1,7 +1,6 @@
 ﻿.container {
     width: 1000px; /* Set a fixed width */
     margin: 0 auto;
-    padding: 20px;
     text-align: center;
 }
 
@@ -70,7 +69,7 @@ p {
 
 .product {
     width: 300px;
-    margin: 10px;
+    margin: 5px;
     padding: 20px;
     background-color: #f7f7f7;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);

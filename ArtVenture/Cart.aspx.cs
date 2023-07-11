@@ -20,17 +20,16 @@ namespace ArtVenture
             if (!IsPostBack)
             {
                
-                // Populate the cart items from the database or any data source
                 List<CartItem> cartItems = GetCartItemsFromDatabase();
 
                 // Bind the cart items to the repeater control
                 cartItemsRepeater.DataSource = cartItems;
                 cartItemsRepeater.DataBind();
 
-                // Calculate and display the cumulative price
                 decimal cumulativePrice = CalculateCumulativePrice(cartItems);
                 cumulativePriceLabel.Text = cumulativePrice.ToString("C");
 
+               
             }
            
         }
@@ -40,15 +39,12 @@ namespace ArtVenture
             // Get the ItemId from the command argument of the delete button
             string itemId = ((Button)sender).CommandArgument;
 
-            // Delete the item from the cart in the database or any data source
             DeleteCartItemFromDatabase(itemId);
 
-            // Rebind the cart items after deletion
             List<CartItem> cartItems = GetCartItemsFromDatabase();
             cartItemsRepeater.DataSource = cartItems;
             cartItemsRepeater.DataBind();
 
-            // Calculate and display the updated cumulative price
             decimal cumulativePrice = CalculateCumulativePrice(cartItems);
             cumulativePriceLabel.Text = cumulativePrice.ToString("C");
         }
@@ -73,25 +69,15 @@ namespace ArtVenture
         {
             if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
             {
-                // Find the controls within the Repeater item
                 TextBox quantityInput = e.Item.FindControl("quantityInput") as TextBox;
                 Label cumulativePrice = e.Item.FindControl("cumulativePrice") as Label;
 
-                // Get the corresponding CartItem object from the data source
                 CartItem cartItem = e.Item.DataItem as CartItem;
 
-                // Set the initial value of the quantity-input control
                 quantityInput.Text = cartItem.QuantityInput.ToString();
 
-                
-
-                // Find the delete button control
                 Button deleteButton = (Button)e.Item.FindControl("DeleteButton");
-
-                // Set the command argument for the delete button
                 deleteButton.CommandArgument = cartItem.ItemId;
-
-                // Set the ID of the delete button to match the item's ItemId
                 deleteButton.ID = cartItem.ItemId;
 
 
@@ -99,20 +85,21 @@ namespace ArtVenture
         }
 
 
-        // Retrieve the cart items from the database or any data source
         private List<CartItem> GetCartItemsFromDatabase()
         {
             List<CartItem> cartItems = new List<CartItem>();
+            string userID = Session["userId"].ToString();
 
             using (SqlConnection con = new SqlConnection(strcon))
             {
                 string query = "SELECT c.itemId, c.quantity, p.Img_id as ImgId, p.Img_name AS ProductName, p.Img_price AS Price " +
                                "FROM cart AS c " +
                                "INNER JOIN signup AS s ON c.userId = s.userId " +
-                               "INNER JOIN pic_detail AS p ON c.Img_id = p.Img_id";
+                               "INNER JOIN pic_detail AS p ON c.Img_id = p.Img_id WHERE s.userId = @userId";
 
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
+                    cmd.Parameters.AddWithValue("@userId", userID);
                     con.Open();
 
                     using (SqlDataReader reader = cmd.ExecuteReader())
@@ -137,7 +124,6 @@ namespace ArtVenture
         }
 
 
-        // Calculate the cumulative price of all cart items
         private decimal CalculateCumulativePrice(List<CartItem> cartItems)
         {
             decimal cumulativePrice = 0;
@@ -154,48 +140,37 @@ namespace ArtVenture
             try {
                 if (UserIsLoggedIn())
                 {
-                    // Get the current user ID from your authentication mechanism
                     string userId = Session["userId"] as string;
 
-                    // Get the cumulative price from the label or any other source
                     decimal cumulativePrice = Decimal.Parse(cumulativePriceLabel.Text.Replace("$", ""));
 
-                    // Get the address type selected by the user
                     string addressType = addresstype.Value;
 
-                    // Add additional charges based on the address type
                     if (addressType == "home")
                     {
                         cumulativePrice += 50;
                         cumulativePriceLabel.Text = cumulativePrice.ToString("C");
                         messageLabel.Text = "Delivery Charge $50 added";
-                        //ClientScript.RegisterStartupScript(this.GetType(), "PaymentAlert", "alert('Delivery Charge $50 added.');", true);
                     }
                     else if (addressType == "office")
                     {
                         cumulativePrice += 20;
                         cumulativePriceLabel.Text = cumulativePrice.ToString("C");
                         messageLabel.Text = "Delivery Charge $20 added";
-                       // ClientScript.RegisterStartupScript(this.GetType(), "PaymentAlert", "alert('Delivery Charge $20 added.');", true);
 
                     }
                     totalPriceLabel.Text = cumulativePrice.ToString("C");
 
-
-                    // Get other payment details from the form controls in the "payment-section" div
                     string fullName = fullname.Value;
                     string mobileNumber = mobile.Value;
                     string landmark = this.landmark.Value;
                     string townCity = town.Value;
 
-                    // Get the current timestamp
                     DateTime timestamp = DateTime.Now;
 
-                    // Generate a new GUID for the order ID
                     string orderId = Guid.NewGuid().ToString();
                     Session["orderId"] = orderId;
 
-                    // Save the data to the "order" table
                     string query = "INSERT INTO payment ([order_id], [userId], [p_name], [p_land], [p_time], [tot_price], [mobile], [p_city], [p_address]) VALUES (@order_id, @userId, @p_name, @p_land, @p_time, @tot_price, @mobile, @p_city, @p_address)";
                     using (SqlConnection connection = new SqlConnection(strcon))
                     {
@@ -265,13 +240,10 @@ namespace ArtVenture
 
         private void SavePaymentDetails(string totalPrice, string deliveryMethod, string orderId)
         {
-            // Get other necessary payment details
             string userId = Session["userId"] as string;
             DateTime timestamp = DateTime.Now;
             string paymentId = Guid.NewGuid().ToString();
           
-
-            // Save the payment details to the order_success table
             using (SqlConnection con = new SqlConnection(strcon))
             {
                 string query = "INSERT INTO order_success (payment_id,order_id, userId, pay_time, pay_method) " +
@@ -288,16 +260,36 @@ namespace ArtVenture
                     con.Open();
                     cmd.ExecuteNonQuery();
                 }
+                orderLabel.Text = "Order placed successfully";
                 Response.Write("<script>alert('Order received for order id: "+ orderId + "');</script>");
+                ClearCartItems(userId);
+
+
+            }
+        }
+
+        private void ClearCartItems(string userId)
+        {
+            using (SqlConnection con = new SqlConnection(strcon))
+            {
+                string query = "DELETE FROM cart WHERE userId = @userId";
+
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@userId", userId);
+
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
             }
         }
 
 
 
 
+
     }
 
-    // Model class for cart items
     public class CartItem
     {
         public string ItemId { get; set; }

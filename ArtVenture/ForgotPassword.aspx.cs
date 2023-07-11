@@ -41,7 +41,6 @@ namespace ArtVenture
 
                     if (count > 0)
                     {
-                        // User exists, update the password
                         cmd = new SqlCommand("UPDATE signup SET [password] = @password WHERE [email] = @email", con);
                         string hashedPassword = HashPassword(PasswordTxt.Text.Trim());
                         cmd.Parameters.AddWithValue("@password", hashedPassword);
@@ -53,7 +52,6 @@ namespace ArtVenture
                     }
                     else
                     {
-                        // User does not exist with the provided email address
                         Response.Write("<script>alert('No user found with the provided email address.');</script>");
                     }
                 }

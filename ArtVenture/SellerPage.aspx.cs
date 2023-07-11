@@ -17,10 +17,9 @@ namespace ArtVenture
         {
             if (!IsPostBack)
             {
-                // Get the username from the session
+               
                 string username = Session["username"] as string;
 
-                // Set the welcome message
                 welcomeLiteral.Text = "Welcome " + username;
 
                 BindProductList();
@@ -52,7 +51,6 @@ namespace ArtVenture
                 string idImage = imageId + userId;
 
                 string uploadFolderPath = Server.MapPath("~/img/Uploads/");
-                // Save the uploaded image to a folder
                 if (fileUpload.HasFile)
                 {
                     string fileName = Path.GetFileName(fileUpload.FileName);
@@ -72,7 +70,6 @@ namespace ArtVenture
                         string filePath = Path.Combine(uploadFolderPath, fileName);
                         selectedfile.SaveAs(filePath);
 
-                        // Save the file path to the server
                         string imagePath = "~/img/Uploads/" + fileName;
 
 
@@ -83,7 +80,6 @@ namespace ArtVenture
 
                         uploadedImage.ImageUrl = "~/img/Uploads/" + fileName;
 
-                        // Insert the image details into the SQL table "pic_detail"
                         using (SqlConnection con = new SqlConnection(strcon))
                         {
                             con.Open();
@@ -111,14 +107,14 @@ namespace ArtVenture
                             }
                         }
 
-                        // Display success message or redirect to a different page
+                       
                         // Response.Write("<script>alert('Image uploaded successfully.');</script>");
                         BindProductList();
                         ClearUploadForm();
                     }
                     else
                     {
-                        // Display an error message if no file is selected
+                        
                         Response.Write("<script>alert('Please select an image file to upload.');</script>");
                     }
                 }
@@ -133,17 +129,17 @@ namespace ArtVenture
 
             catch (Exception ex)
             {
-                // Handle the exception
+               
                 Response.Write("<script>alert('Error: " + ex.Message + "');</script>");
             }
         }
 
         protected void LogoutButton_Click(object sender, EventArgs e)
         {
-            Response.Redirect("~/Login.aspx");
             Session.Clear();
             Session.Abandon();
             Response.Cookies.Clear();
+             Response.Redirect("~/Login.aspx");
         }
 
         private void ClearUploadForm()
@@ -158,29 +154,9 @@ namespace ArtVenture
             uploadedImage.ImageUrl = "";
             Session["Photoname"] = null;
             Session["Photobinary"] = null;
-            fileUpload.Dispose(); // Clear the selected file
+            fileUpload.Dispose(); 
         }
 
-        private int GetOrderCount()
-        {
-            int count = 0;
-            try
-            {
-                using (SqlConnection con = new SqlConnection(strcon))
-                {
-                    con.Open();
-                    SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM pic_detail WHERE seller_username = @username", con);
-                    cmd.Parameters.AddWithValue("@username", Session["username"]);
-                    count = Convert.ToInt32(cmd.ExecuteScalar());
-                }
-            }
-            catch (Exception ex)
-            {
-                // Handle the exception
-                Response.Write("<script>alert('Error: " + ex.Message + "');</script>");
-            }
-            return count;
-        }
 
         private void BindProductList()
         {
@@ -232,18 +208,18 @@ namespace ArtVenture
 
         protected void DeleteButton_Click(object sender, EventArgs e)
         {
-            // Get the button that triggered the event
+           
             LinkButton deleteButton = sender as LinkButton;
 
-            // Find the corresponding RepeaterItem
+            
             RepeaterItem item = deleteButton.NamingContainer as RepeaterItem;
 
             if (item != null)
             {
-                // Get the image ID associated with the RepeaterItem
+                
                 string imageId = (item.FindControl("imageIdHiddenField") as HiddenField)?.Value;
 
-                // Delete the image with the given imageId
+                
                 DeleteImage(imageId);
             }
         }
@@ -261,13 +237,13 @@ namespace ArtVenture
                     int rowsAffected = cmd.ExecuteNonQuery();
                     if (rowsAffected > 0)
                     {
-                        // Image deleted successfully
+                        
                         Response.Write("<script>alert('Image deleted successfully.');</script>");
                         BindProductList();
                     }
                     else
                     {
-                        // Failed to delete image
+                        
                         Response.Write("<script>alert('Failed to delete image.');</script>");
                     }
                 }

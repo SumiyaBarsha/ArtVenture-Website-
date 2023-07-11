@@ -15,7 +15,6 @@ namespace ArtVenture
         {
             if (!IsPostBack)
             {
-                // Get the image ID from the query string or any other source
                 string imageId = Request.QueryString["Img_id"];
 
                 if (!string.IsNullOrEmpty(imageId))
@@ -78,10 +77,8 @@ namespace ArtVenture
             string imgId = Request.QueryString["Img_id"];
             string userId = RetrieveUserIdFromDatabase(imgId);
 
-            // Retrieve the ImageUrl from the database
             string imageUrl = RetrieveImageUrlFromDatabase(imgId);
 
-            // Save the necessary information to the cart table
             AddToCart(userId, imgId, imageUrl);
         }
 
@@ -90,18 +87,15 @@ namespace ArtVenture
         {
             string userId = null;
 
-            // Establish a database connection
             using (SqlConnection connection = new SqlConnection(strcon))
             {
                 connection.Open();
 
-                // Create a SQL command to retrieve the userId
                 string query = "SELECT userId FROM pic_detail WHERE Img_id = @ImageId";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@ImageId", imageId);
 
-                    // Execute the query and retrieve the userId
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         if (reader.Read())
@@ -118,7 +112,7 @@ namespace ArtVenture
         {
             string imageUrl = null;
 
-            // Establish a database connection
+           
             using (SqlConnection connection = new SqlConnection(strcon))
             {
                 connection.Open();
@@ -129,7 +123,7 @@ namespace ArtVenture
                 {
                     command.Parameters.AddWithValue("@ImageId", imageId);
 
-                    // Execute the query and retrieve the imageUrl
+                    
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         if (reader.Read())
@@ -152,7 +146,7 @@ namespace ArtVenture
 
                 using (SqlCommand command = new SqlCommand(query, con))
                 {
-                    // Set the parameter values
+                    
                     command.Parameters.AddWithValue("@itemId", userId + imgId);
 
                     con.Open();
@@ -161,23 +155,23 @@ namespace ArtVenture
 
                     if (itemCount > 0)
                     {
-                        // Item already exists in the cart, increase the quantity
+                       
                         query = "UPDATE cart SET quantity = quantity + 1 WHERE itemId = @itemId";
 
                         using (SqlCommand updateCommand = new SqlCommand(query, con))
                         {
-                            // Set the parameter values for update
+                            
                             updateCommand.Parameters.AddWithValue("@itemId", userId + imgId);
 
                             updateCommand.ExecuteNonQuery();
 
-                            // Display a message or perform any additional actions
+                           
                             Response.Write("<script>alert('Item quantity increased in the cart.');</script>");
                         }
                     }
                     else
                     {
-                        // Item does not exist in the cart, proceed with insertion
+                        
                         query = "INSERT INTO cart (itemId, userId, Img_id, quantity) VALUES (@itemId, @userId, @Img_id, @quantity)";
 
                         using (SqlCommand insertCommand = new SqlCommand(query, con))
@@ -191,7 +185,7 @@ namespace ArtVenture
 
                             insertCommand.ExecuteNonQuery();
 
-                            // Item added to cart, display a success message or perform any additional actions
+                           
                             Response.Write("<script>alert('Item added to cart.');</script>");
                         }
                     }

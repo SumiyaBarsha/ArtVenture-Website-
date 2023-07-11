@@ -35,7 +35,6 @@ namespace ArtVenture
 
         }
 
-        // Method to retrieve image data from the database based on category and bind it to the repeater
         private void BindImageDataByCategory(string category, string searchQuery, Repeater repeater)
         {
             using (SqlConnection con = new SqlConnection(strcon))
@@ -81,12 +80,10 @@ namespace ArtVenture
                 searchResultsGridView.DataSource = searchResults;
                 searchResultsGridView.DataBind();
 
-                // Show or hide the GridView based on search results
                 searchResultsGridView.Visible = searchResults.Count > 0;
             }
             else
             {
-                // Hide the GridView when search query is empty or null
                 searchResultsGridView.Visible = false;
             }
         }
@@ -107,7 +104,6 @@ namespace ArtVenture
 
             if (searchResults.Count > 0)
             {
-                // Display search results
                 searchResultsGridView.DataSource = searchResults;
                 searchResultsGridView.DataBind();
                 searchResultsGridView.Visible = true;
@@ -116,7 +112,6 @@ namespace ArtVenture
             }
             else
             {
-                // Display search message
                 searchResultsGridView.Visible = false;
 
             }
@@ -125,12 +120,12 @@ namespace ArtVenture
         private List<ImageModel> SearchImagesByImgName(string searchTerm)
         {
             string searchQuery
-                = searchTerm.ToLower(); // Convert the search query to lowercase
+                = searchTerm.ToLower(); 
 
             string strcon = ConfigurationManager.ConnectionStrings["dbconnection"].ConnectionString;
             using (SqlConnection con = new SqlConnection(strcon))
             {
-                string query = "SELECT [Img], [Img_id], [Img_name], [Img_price], [Img_type], [Img_medium], [Img_frame] FROM pic_detail WHERE LOWER([Img_name]) LIKE '%' + @SearchQuery + '%' OR [Img_type] = @SearchInput"; // Convert Img_name to lowercase in the query
+                string query = "SELECT [Img], [Img_id], [Img_name], [Img_price], [Img_type], [Img_medium], [Img_frame] FROM pic_detail WHERE LOWER([Img_name]) LIKE '%' + @SearchQuery + '%' OR [Img_type] = @SearchInput";
 
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
@@ -141,15 +136,12 @@ namespace ArtVenture
                     DataTable dataTable = new DataTable();
                     adapter.Fill(dataTable);
 
-                    // Bind the DataTable to the GridView
                     searchResultsGridView.DataSource = dataTable;
                     searchResultsGridView.DataBind();
                 }
             }
 
             List<ImageModel> searchResults = new List<ImageModel>();
-
-            // Example code to search for images based on image name
             foreach (ImageModel image in FetchImagesFromDataSource())
             {
                 if (image.Img_name.ToLower().Contains(searchQuery) || image.Img_type.Equals(searchTerm, StringComparison.OrdinalIgnoreCase))
@@ -231,7 +223,6 @@ namespace ArtVenture
 
                 using (SqlCommand command = new SqlCommand(query, con))
                 {
-                    // Set the parameter values
                     command.Parameters.AddWithValue("@itemId", userId + imgId);
 
                     con.Open();
@@ -240,23 +231,20 @@ namespace ArtVenture
 
                     if (itemCount > 0)
                     {
-                        // Item already exists in the cart, increase the quantity
                         query = "UPDATE cart SET quantity = quantity + 1 WHERE itemId = @itemId";
 
                         using (SqlCommand updateCommand = new SqlCommand(query, con))
                         {
-                            // Set the parameter values for update
+                            
                             updateCommand.Parameters.AddWithValue("@itemId", userId + imgId);
 
                             updateCommand.ExecuteNonQuery();
 
-                            // Display a message or perform any additional actions
                             Response.Write("<script>alert('Item quantity increased in the cart.');</script>");
                         }
                     }
                     else
                     {
-                        // Item does not exist in the cart, proceed with insertion
                         string relativePath = "~/img/Shoppingbag.jpg";
                         string imageurl = ResolveUrl(relativePath);
 
@@ -273,7 +261,6 @@ namespace ArtVenture
 
                             insertCommand.ExecuteNonQuery();
 
-                            // Item added to cart, display a success message or perform any additional actions
                             Response.Write("<script>alert('Item added to cart.');</script>");
                         }
                     }
@@ -300,7 +287,6 @@ namespace ArtVenture
 
                         using (SqlCommand insertCommand = new SqlCommand(query, con))
                         {
-                            // Set the parameter values for insertion
                             insertCommand.Parameters.AddWithValue("@itemId", userId + imgId);
                             insertCommand.Parameters.AddWithValue("@userId", userId);
                             insertCommand.Parameters.AddWithValue("@Img_id", imgId);
@@ -308,7 +294,6 @@ namespace ArtVenture
 
                             insertCommand.ExecuteNonQuery();
 
-                            // Item added to cart, display a success message or perform any additional actions
                             Response.Write("<script>alert('Item added to wishlist.');</script>");
                         }
                     
