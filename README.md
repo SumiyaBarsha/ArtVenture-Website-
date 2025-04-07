@@ -3,9 +3,9 @@ An art-based E-Commerce Website ArtVenture is an ASP.NET CORE web application th
 
 🔑 Key features:
 
-🖼️ User profile with editable picture, age, phone, and address
-🛒 Cart and Wishlist functionality
-💳 Secure checkout and order placement
-🔐 Password hashing for secure authentication
-📦 Order history and payment tracking
+- 🖼️ User profile with editable picture, age, phone, and address
+- 🛒 Cart and Wishlist functionality
+- 💳 Secure checkout and order placement
+- 🔐 Password hashing for secure authentication
+- 📦 Order history and payment tracking
 
